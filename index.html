@@ -426,31 +426,70 @@ function setState(text,active){
  mic.classList.toggle("active",active);
 }
 
-mic.onclick=function(){
+let recognition;
+let listening = false;
 
- clearTimeout(timer);
+if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
 
- setState("LISTENING",true);
+  recognition = new SpeechRecognition();
+  recognition.lang = "it-IT";
+  recognition.continuous = false;
+  recognition.interimResults = false;
 
- timer=setTimeout(function(){
+  recognition.onstart = function() {
+    listening = true;
+    setState("LISTENING", true);
+  };
 
-  setState("THINKING",true);
+  recognition.onresult = function(event) {
+    const text = event.results[0][0].transcript;
 
-  timer=setTimeout(function(){
+    setState("THINKING", true);
 
-   setState("SPEAKING",true);
+    setTimeout(() => {
+      speak("Ho ascoltato: " + text);
+    }, 700);
+  };
 
-   timer=setTimeout(function(){
+  recognition.onerror = function() {
+    setState("SYSTEM READY", false);
+    speak("Non sono riuscito ad ascoltare la tua voce.");
+  };
 
-    setState("SYSTEM READY",false);
+  recognition.onend = function() {
+    listening = false;
+  };
 
-   },1800);
+} else {
+  alert("Il riconoscimento vocale non è supportato da questo browser.");
+}
 
-  },1400);
+function speak(text) {
+  setState("SPEAKING", true);
 
- },1800);
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "it-IT";
+  utterance.rate = 1;
+  utterance.pitch = 0.9;
+
+  utterance.onend = function() {
+    setState("SYSTEM READY", false);
+  };
+
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utterance);
+}
+
+mic.onclick = function() {
+  if (!recognition) return;
+
+  if (!listening) {
+    speechSynthesis.cancel();
+    recognition.start();
+  }
 };
-
 </script>
 
 </body>
