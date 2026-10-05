@@ -416,72 +416,124 @@ function updateClock(){
 setInterval(updateClock,1000);
 updateClock();
 
-let timer;
+let recognition = null;
+let listening = false;
 
-function setState(text,active){
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
 
- status.textContent=text;
- voice.textContent=active?text:"READY";
+function speak(text) {
 
- mic.classList.toggle("active",active);
-}
+  setState("SPEAKING", true);
 
-mic.onclick = function() {
-
-  setState("LISTENING", true);
-
-  if (!("webkitSpeechRecognition" in window)) {
+  if (!("speechSynthesis" in window)) {
     setState("SYSTEM READY", false);
-    alert("Il riconoscimento vocale non è disponibile in questo browser.");
+    alert("La sintesi vocale non è disponibile.");
     return;
   }
 
-  const recognition = new webkitSpeechRecognition();
+  speechSynthesis.cancel();
+
+  const voce = new SpeechSynthesisUtterance(text);
+
+  voce.lang = "it-IT";
+  voce.rate = 0.92;
+  voce.pitch = 0.85;
+  voce.volume = 1;
+
+  voce.onend = function() {
+    setState("SYSTEM READY", false);
+  };
+
+  voce.onerror = function() {
+    setState("SYSTEM READY", false);
+  };
+
+  speechSynthesis.speak(voce);
+}
+
+function startListening() {
+
+  if (!SpeechRecognition) {
+
+    setState("SYSTEM READY", false);
+
+    alert(
+      "Il riconoscimento vocale non è supportato da questo browser."
+    );
+
+    return;
+  }
+
+  recognition = new SpeechRecognition();
 
   recognition.lang = "it-IT";
   recognition.continuous = false;
   recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.onstart = function() {
+
+    listening = true;
+
+    setState("LISTENING", true);
+  };
 
   recognition.onresult = function(event) {
 
-    const testo = event.results[0][0].transcript;
+    const testo =
+      event.results[0][0].transcript;
 
     setState("THINKING", true);
 
     setTimeout(function() {
 
-      setState("SPEAKING", true);
-
-      const voce = new SpeechSynthesisUtterance(
+      speak(
         "Ho capito: " + testo
       );
 
-      voce.lang = "it-IT";
-      voce.rate = 0.95;
-      voce.pitch = 0.85;
-
-      voce.onend = function() {
-        setState("SYSTEM READY", false);
-      };
-
-      speechSynthesis.cancel();
-      speechSynthesis.speak(voce);
-
-    }, 700);
+    }, 600);
   };
 
   recognition.onerror = function(event) {
 
+    listening = false;
+
     setState("SYSTEM READY", false);
 
-    alert("Errore microfono: " + event.error);
+    alert(
+      "Errore microfono: " + event.error
+    );
   };
 
   recognition.onend = function() {
+
+    listening = false;
+
     mic.classList.remove("active");
   };
 
-  recognition.start();
+  try {
+
+    recognition.start();
+
+  } catch(error) {
+
+    listening = false;
+
+    setState("SYSTEM READY", false);
+
+    alert(
+      "Impossibile avviare il microfono."
+    );
+  }
+}
+
+mic.onclick = function() {
+
+  if (listening) return;
+
+  startListening();
 };
 </script>
 
