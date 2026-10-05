@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
 
 <meta charset="UTF-8">
@@ -21,7 +22,12 @@
 
 <title>JARVIS AI</title>
 
+
 <style>
+
+/* =====================================================
+   BASE
+===================================================== */
 
 *{
     box-sizing:border-box;
@@ -29,7 +35,8 @@
     padding:0;
 }
 
-html,body{
+html,
+body{
 
     width:100%;
     height:100%;
@@ -74,7 +81,7 @@ html,body{
 
 
 /* =====================================================
-   TOP BAR
+   TOP
 ===================================================== */
 
 .top{
@@ -216,7 +223,6 @@ html,body{
         translate(-50%,-50%);
 
     border:
-
         1px solid
         rgba(0,234,255,.18);
 
@@ -233,7 +239,7 @@ html,body{
 
 
 /* =====================================================
-   CENTRAL AREA
+   CENTRO
 ===================================================== */
 
 .center{
@@ -257,7 +263,7 @@ html,body{
 
 
 /* =====================================================
-   RINGS
+   ANELLI
 ===================================================== */
 
 .ring{
@@ -422,7 +428,7 @@ html,body{
 
 
 /* =====================================================
-   PARTICELLE NEURALI
+   PARTICELLE
 ===================================================== */
 
 .neural span{
@@ -478,24 +484,30 @@ html,body{
 @keyframes particle{
 
     0%{
+
         transform:scale(.5);
+
         opacity:.2;
     }
 
     50%{
+
         transform:scale(1.5);
+
         opacity:1;
     }
 
     100%{
+
         transform:scale(.5);
+
         opacity:.2;
     }
 }
 
 
 /* =====================================================
-   SCAN LINE
+   SCAN
 ===================================================== */
 
 .scan{
@@ -519,8 +531,10 @@ html,body{
 @keyframes scan{
 
     0%,100%{
+
         transform:
             translateY(-70px);
+
         opacity:0;
     }
 
@@ -529,8 +543,10 @@ html,body{
     }
 
     50%{
+
         transform:
             translateY(70px);
+
         opacity:1;
     }
 
@@ -541,7 +557,7 @@ html,body{
 
 
 /* =====================================================
-   MIC BUTTON
+   PULSANTE MICROFONO
 ===================================================== */
 
 .mic{
@@ -634,7 +650,7 @@ html,body{
 
 
 /* =====================================================
-   INFO PANELS
+   PANNELLI
 ===================================================== */
 
 .panel{
@@ -689,7 +705,7 @@ html,body{
 
 
 /* =====================================================
-   VOICE TEXT
+   TESTO VOCALE
 ===================================================== */
 
 .voice{
@@ -719,7 +735,7 @@ html,body{
 
 
 /* =====================================================
-   RESPONSIVE
+   DISPLAY PICCOLO
 ===================================================== */
 
 @media(max-height:700px){
@@ -745,6 +761,7 @@ html,body{
 
         bottom:100px;
     }
+
 }
 
 </style>
@@ -758,9 +775,7 @@ html,body{
 <div class="app">
 
 
-    <!-- =================================================
-         TOP
-    ================================================= -->
+    <!-- TOP -->
 
     <div class="top">
 
@@ -771,15 +786,15 @@ html,body{
         <div
             class="clock"
             id="clock">
+
             --:--
+
         </div>
 
     </div>
 
 
-    <!-- =================================================
-         STATUS
-    ================================================= -->
+    <!-- STATUS -->
 
     <div
         class="status"
@@ -790,19 +805,14 @@ html,body{
     </div>
 
 
-    <!-- =================================================
-         HUD
-    ================================================= -->
+    <!-- HUD -->
 
     <div class="hud"></div>
 
 
-    <!-- =================================================
-         CENTER
-    ================================================= -->
+    <!-- CENTRO -->
 
     <div class="center">
-
 
         <div class="ring ring1"></div>
 
@@ -829,26 +839,19 @@ html,body{
 
         <div class="scan"></div>
 
-
     </div>
 
 
-    <!-- =================================================
-         VOICE
-    ================================================= -->
+    <!-- TESTO -->
 
     <div
         class="voice"
         id="voice">
 
-        Premi il microfono per parlare
-
     </div>
 
 
-    <!-- =================================================
-         PANELS
-    ================================================= -->
+    <!-- PANNELLI -->
 
     <div class="panel left">
 
@@ -868,9 +871,7 @@ html,body{
     </div>
 
 
-    <!-- =================================================
-         MICROPHONE
-    ================================================= -->
+    <!-- MICROFONO -->
 
     <button
         class="mic"
@@ -916,6 +917,7 @@ function updateClock(){
 
 updateClock();
 
+
 setInterval(
     updateClock,
     1000
@@ -939,7 +941,7 @@ const voiceText =
 
 
 /* =====================================================
-   STATO JARVIS
+   STATO
 ===================================================== */
 
 function setState(state){
@@ -1004,7 +1006,7 @@ function setState(state){
 
 
 /* =====================================================
-   VOCE
+   VOCE ITALIANA
 ===================================================== */
 
 let italianVoice = null;
@@ -1043,6 +1045,11 @@ function loadVoices(){
 
     }
 
+
+    /*
+       Cerchiamo prima una voce
+       che sembri maschile.
+    */
 
     const maleKeywords = [
 
@@ -1094,6 +1101,12 @@ function loadVoices(){
 
     else{
 
+        /*
+           Se non troviamo una voce
+           maschile identificabile,
+           scegliamo quella locale.
+        */
+
         italianVoice =
 
             italianVoices.find(
@@ -1111,7 +1124,7 @@ function loadVoices(){
 
 
     console.log(
-        "VOCE SELEZIONATA:",
+        "VOCE JARVIS:",
         italianVoice.name
     );
 
@@ -1131,7 +1144,7 @@ if("speechSynthesis" in window){
 
 
 /* =====================================================
-   PARLARE
+   JARVIS PARLA
 ===================================================== */
 
 function speak(text){
@@ -1153,8 +1166,13 @@ function speak(text){
     );
 
 
+    /*
+       Il testo NON viene mostrato
+       sullo schermo.
+    */
+
     voiceText.textContent =
-        text;
+        "";
 
 
     const utterance =
@@ -1176,9 +1194,7 @@ function speak(text){
 
 
     /*
-       Voce più lenta e profonda,
-       senza cercare di imitare
-       una voce specifica.
+       Parametri JARVIS.
     */
 
     utterance.rate =
@@ -1220,7 +1236,7 @@ function speak(text){
 
 
 /* =====================================================
-   SPEECH RECOGNITION
+   RICONOSCIMENTO VOCALE
 ===================================================== */
 
 const SpeechRecognition =
@@ -1256,7 +1272,7 @@ if(SpeechRecognition){
 
 
     /* =================================================
-       INIZIO ASCOLTO
+       MICROFONO ATTIVO
     ================================================= */
 
     recognition.onstart =
@@ -1266,12 +1282,14 @@ if(SpeechRecognition){
                 "MICROFONO ATTIVO"
             );
 
+
             setState(
                 "LISTENING"
             );
 
+
             voiceText.textContent =
-                "Sto ascoltando...";
+                "";
 
         };
 
@@ -1284,13 +1302,12 @@ if(SpeechRecognition){
     recognition.onresult =
         function(event){
 
-
             console.log(
                 "RISULTATO RICEVUTO"
             );
 
 
-            let testo =
+            const testo =
                 event
                     .results[0][0]
                     .transcript;
@@ -1302,20 +1319,18 @@ if(SpeechRecognition){
             );
 
 
-            setState(
-                "THINKING"
-            );
-
-
             /*
-               Mostriamo ciò che JARVIS
-               ha effettivamente capito.
+               NON mostriamo il testo
+               riconosciuto.
             */
 
             voiceText.textContent =
-                "Hai detto: " +
-                testo;
+                "";
 
+
+            setState(
+                "THINKING"
+            );
 
 
             /* =========================================
@@ -1576,7 +1591,7 @@ if(SpeechRecognition){
 
 
             /* =========================================
-               RICHIESTA GENERICA
+               GENERALE
             ========================================= */
 
             setTimeout(
@@ -1615,39 +1630,15 @@ if(SpeechRecognition){
             );
 
 
-            if(
-                event.error ===
-                "not-allowed"
-            ){
-
-                voiceText.textContent =
-                    "Permesso microfono negato.";
-
-            }
-
-            else if(
-                event.error ===
-                "no-speech"
-            ){
-
-                voiceText.textContent =
-                    "Non ho sentito nulla.";
-
-            }
-
-            else{
-
-                voiceText.textContent =
-                    "Errore di ascolto.";
-
-            }
+            voiceText.textContent =
+                "";
 
         };
 
 
 
     /* =================================================
-       FINE ASCOLTO
+       FINE
     ================================================= */
 
     recognition.onend =
@@ -1664,22 +1655,21 @@ if(SpeechRecognition){
 
         };
 
-
-
 }
 
 
 
 /* =====================================================
-   AVVIO MICROFONO
+   AVVIO
 ===================================================== */
 
 function startListening(){
 
     if(!recognition){
 
-        voiceText.textContent =
-            "Il browser non supporta il riconoscimento vocale.";
+        console.log(
+            "Speech Recognition non supportato"
+        );
 
         return;
 
@@ -1695,7 +1685,7 @@ function startListening(){
     catch(error){
 
         console.log(
-            "MIC GIA ATTIVO"
+            "MICROFONO GIA ATTIVO"
         );
 
     }
@@ -1705,7 +1695,7 @@ function startListening(){
 
 
 /* =====================================================
-   CLICK MICROFONO
+   CLICK
 ===================================================== */
 
 mic.addEventListener(
@@ -1723,7 +1713,7 @@ mic.addEventListener(
 
 
 /* =====================================================
-   MESSAGGIO INIZIALE
+   AVVIO
 ===================================================== */
 
 setState(
@@ -1744,4 +1734,5 @@ console.log(
 
 
 </body>
+
 </html>
