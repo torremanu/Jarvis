@@ -426,69 +426,62 @@ function setState(text,active){
  mic.classList.toggle("active",active);
 }
 
-let recognition;
-let listening = false;
+mic.onclick = function() {
 
-if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
+  setState("LISTENING", true);
 
-  recognition = new SpeechRecognition();
+  if (!("webkitSpeechRecognition" in window)) {
+    setState("SYSTEM READY", false);
+    alert("Il riconoscimento vocale non è disponibile in questo browser.");
+    return;
+  }
+
+  const recognition = new webkitSpeechRecognition();
+
   recognition.lang = "it-IT";
   recognition.continuous = false;
   recognition.interimResults = false;
 
-  recognition.onstart = function() {
-    listening = true;
-    setState("LISTENING", true);
-  };
-
   recognition.onresult = function(event) {
-    const text = event.results[0][0].transcript;
+
+    const testo = event.results[0][0].transcript;
 
     setState("THINKING", true);
 
-    setTimeout(() => {
-      speak("Ho ascoltato: " + text);
+    setTimeout(function() {
+
+      setState("SPEAKING", true);
+
+      const voce = new SpeechSynthesisUtterance(
+        "Ho capito: " + testo
+      );
+
+      voce.lang = "it-IT";
+      voce.rate = 0.95;
+      voce.pitch = 0.85;
+
+      voce.onend = function() {
+        setState("SYSTEM READY", false);
+      };
+
+      speechSynthesis.cancel();
+      speechSynthesis.speak(voce);
+
     }, 700);
   };
 
-  recognition.onerror = function() {
+  recognition.onerror = function(event) {
+
     setState("SYSTEM READY", false);
-    speak("Non sono riuscito ad ascoltare la tua voce.");
+
+    alert("Errore microfono: " + event.error);
   };
 
   recognition.onend = function() {
-    listening = false;
+    mic.classList.remove("active");
   };
 
-} else {
-  alert("Il riconoscimento vocale non è supportato da questo browser.");
-}
-
-function speak(text) {
-  setState("SPEAKING", true);
-
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "it-IT";
-  utterance.rate = 1;
-  utterance.pitch = 0.9;
-
-  utterance.onend = function() {
-    setState("SYSTEM READY", false);
-  };
-
-  speechSynthesis.cancel();
-  speechSynthesis.speak(utterance);
-}
-
-mic.onclick = function() {
-  if (!recognition) return;
-
-  if (!listening) {
-    speechSynthesis.cancel();
-    recognition.start();
-  }
+  recognition.start();
 };
 </script>
 
