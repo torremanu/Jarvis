@@ -30,91 +30,55 @@
 ========================================================= */
 
 :root{
-
     --cyan:#00eaff;
     --blue:#147bff;
     --bg:#020912;
     --panel:rgba(3,20,31,.72);
-
 }
-
 
 *{
-
     box-sizing:border-box;
-
     -webkit-tap-highlight-color:transparent;
-
 }
-
 
 html,
 body{
-
     margin:0;
-
     width:100%;
-
     height:100%;
-
     overflow:hidden;
-
     background:var(--bg);
-
     color:var(--cyan);
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+    font-family:Arial,Helvetica,sans-serif;
 }
 
-
 body{
-
     background:
-
         radial-gradient(
             circle at 50% 45%,
             rgba(0,234,255,.10),
             transparent 32%
         ),
-
         radial-gradient(
             circle at 50% 100%,
             rgba(20,123,255,.08),
             transparent 40%
         ),
-
         #020912;
-
 }
 
-
-/* =========================================================
-   GRID FUTURISTICA
-========================================================= */
-
 body:before{
-
     content:"";
-
     position:fixed;
-
     inset:0;
-
     pointer-events:none;
-
     opacity:.22;
 
     background-image:
-
         linear-gradient(
             rgba(0,234,255,.08) 1px,
             transparent 1px
         ),
-
         linear-gradient(
             90deg,
             rgba(0,234,255,.08) 1px,
@@ -131,7 +95,6 @@ body:before{
             #000 85%,
             transparent
         );
-
 }
 
 
@@ -140,17 +103,11 @@ body:before{
 ========================================================= */
 
 .app{
-
     height:100%;
-
     position:relative;
-
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
 }
 
 
@@ -159,63 +116,39 @@ body:before{
 ========================================================= */
 
 .top{
-
     position:absolute;
-
     top:22px;
-
     left:20px;
-
     right:20px;
 
     display:flex;
-
     justify-content:space-between;
-
     align-items:flex-start;
 
     z-index:5;
-
 }
 
-
 .brand{
-
     font-size:27px;
-
     letter-spacing:8px;
-
     font-weight:300;
 
     text-shadow:
         0 0 16px var(--cyan);
-
 }
-
 
 .sub{
-
     font-size:9px;
-
     letter-spacing:3px;
-
     margin-top:5px;
-
     opacity:.65;
-
 }
 
-
 .clock{
-
     text-align:right;
-
     font-size:11px;
-
     letter-spacing:2px;
-
     opacity:.75;
-
 }
 
 
@@ -224,9 +157,7 @@ body:before{
 ========================================================= */
 
 .status{
-
     position:absolute;
-
     top:92px;
 
     text-align:center;
@@ -234,21 +165,16 @@ body:before{
     z-index:5;
 
     font-size:12px;
-
     letter-spacing:4px;
 
     text-shadow:
         0 0 12px var(--cyan);
-
 }
 
-
 .status .dot{
-
     display:inline-block;
 
     width:7px;
-
     height:7px;
 
     border-radius:50%;
@@ -259,7 +185,6 @@ body:before{
         0 0 12px var(--cyan);
 
     margin-right:9px;
-
 }
 
 
@@ -268,26 +193,20 @@ body:before{
 ========================================================= */
 
 .hud{
-
     position:absolute;
 
     top:50%;
-
     left:50%;
 
     width:310px;
-
     height:310px;
 
     transform:
         translate(-50%,-49%);
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
 }
 
 
@@ -299,22 +218,16 @@ body:before{
 .ring2,
 .ring3,
 .ring4{
-
     position:absolute;
-
     border-radius:50%;
 
     border:
         1px solid
         rgba(0,234,255,.42);
-
 }
 
-
 .ring{
-
     width:285px;
-
     height:285px;
 
     border-style:dashed;
@@ -324,14 +237,10 @@ body:before{
         18s
         linear
         infinite;
-
 }
 
-
 .ring2{
-
     width:240px;
-
     height:240px;
 
     border-color:
@@ -348,14 +257,10 @@ body:before{
         10s
         linear
         infinite;
-
 }
 
-
 .ring3{
-
     width:190px;
-
     height:190px;
 
     border:
@@ -373,14 +278,10 @@ body:before{
         7s
         linear
         infinite;
-
 }
 
-
 .ring4{
-
     width:138px;
-
     height:138px;
 
     border:
@@ -388,13 +289,11 @@ body:before{
         rgba(0,234,255,.8);
 
     box-shadow:
-
         0 0 28px
         rgba(0,234,255,.16),
 
         inset 0 0 22px
         rgba(0,234,255,.12);
-
 }
 
 
@@ -403,11 +302,9 @@ body:before{
 ========================================================= */
 
 .tick{
-
     position:absolute;
 
     width:300px;
-
     height:300px;
 
     border-radius:50%;
@@ -417,41 +314,32 @@ body:before{
         25s
         linear
         infinite;
-
 }
-
 
 .tick:before,
 .tick:after{
-
     content:"";
 
     position:absolute;
 
     left:50%;
-
     top:-4px;
 
     width:2px;
-
     height:20px;
 
     background:var(--cyan);
 
     box-shadow:
         0 290px 0 var(--cyan);
-
 }
 
-
 .tick:after{
-
     transform:
         rotate(90deg);
 
     transform-origin:
         1px 154px;
-
 }
 
 
@@ -460,9 +348,7 @@ body:before{
 ========================================================= */
 
 .core{
-
     width:74px;
-
     height:74px;
 
     border-radius:50%;
@@ -470,7 +356,6 @@ body:before{
     position:relative;
 
     background:
-
         radial-gradient(
             circle,
             rgba(255,255,255,.95) 0 3%,
@@ -480,24 +365,18 @@ body:before{
         );
 
     box-shadow:
-
         0 0 25px var(--cyan),
-
-        0 0 65px
-        rgba(0,234,255,.35);
+        0 0 65px rgba(0,234,255,.35);
 
     animation:
         pulse
         2.2s
         ease-in-out
         infinite;
-
 }
-
 
 .core:before,
 .core:after{
-
     content:"";
 
     position:absolute;
@@ -509,18 +388,14 @@ body:before{
         var(--cyan);
 
     border-radius:50%;
-
 }
 
-
 .core:after{
-
     inset:27px;
 
     border-color:white;
 
     opacity:.7;
-
 }
 
 
@@ -529,15 +404,12 @@ body:before{
 ========================================================= */
 
 .scan{
-
     position:absolute;
 
     width:250px;
-
     height:2px;
 
     background:
-
         linear-gradient(
             90deg,
             transparent,
@@ -553,7 +425,6 @@ body:before{
         4s
         ease-in-out
         infinite;
-
 }
 
 
@@ -562,11 +433,9 @@ body:before{
 ========================================================= */
 
 #neural span{
-
     position:absolute;
 
     width:3px;
-
     height:3px;
 
     border-radius:50%;
@@ -581,22 +450,18 @@ body:before{
         3s
         ease-in-out
         infinite alternate;
-
 }
 
 
 /* =========================================================
-   INFO PANELS
+   INFO
 ========================================================= */
 
 .info{
-
     position:absolute;
 
     bottom:105px;
-
     left:18px;
-
     right:18px;
 
     display:grid;
@@ -607,12 +472,9 @@ body:before{
     gap:8px;
 
     z-index:5;
-
 }
 
-
 .panel{
-
     border:
         1px solid
         rgba(0,234,255,.28);
@@ -628,29 +490,18 @@ body:before{
     box-shadow:
         inset 0 0 15px
         rgba(0,234,255,.03);
-
 }
-
 
 .label{
-
     font-size:8px;
-
     letter-spacing:2px;
-
     opacity:.55;
-
 }
 
-
 .value{
-
     font-size:11px;
-
     letter-spacing:1px;
-
     margin-top:7px;
-
 }
 
 
@@ -659,28 +510,20 @@ body:before{
 ========================================================= */
 
 .bottom{
-
     position:absolute;
 
     bottom:25px;
-
     left:0;
-
     right:0;
 
     display:flex;
-
     justify-content:center;
 
     z-index:10;
-
 }
 
-
 .mic{
-
     width:70px;
-
     height:70px;
 
     border-radius:50%;
@@ -701,12 +544,9 @@ body:before{
         rgba(0,234,255,.18);
 
     transition:.2s;
-
 }
 
-
 .mic.active{
-
     background:
         rgba(0,234,255,.18);
 
@@ -716,7 +556,6 @@ body:before{
 
     transform:
         scale(1.08);
-
 }
 
 
@@ -725,7 +564,6 @@ body:before{
 ========================================================= */
 
 .footer{
-
     position:absolute;
 
     bottom:5px;
@@ -735,7 +573,6 @@ body:before{
     letter-spacing:2px;
 
     opacity:.35;
-
 }
 
 
@@ -744,93 +581,65 @@ body:before{
 ========================================================= */
 
 @keyframes spin{
-
     to{
-
         transform:
             rotate(360deg);
-
     }
-
 }
-
 
 @keyframes spinBack{
-
     to{
-
         transform:
             rotate(-360deg);
-
     }
-
 }
 
-
 @keyframes pulse{
-
     50%{
-
         transform:
             scale(1.12);
 
         filter:
             brightness(1.3);
-
     }
-
 }
-
 
 @keyframes scan{
 
     0%,
     100%{
-
         transform:
             translateY(-100px);
 
         opacity:0;
-
     }
 
     20%,
     80%{
-
         opacity:.75;
-
     }
 
     50%{
-
         transform:
             translateY(100px);
-
     }
-
 }
-
 
 @keyframes particle{
 
     from{
-
         transform:
             scale(.6);
 
         opacity:.35;
-
     }
 
     to{
-
         transform:
             scale(1.5);
 
         opacity:1;
-
     }
-
 }
 
 
@@ -841,29 +650,21 @@ body:before{
 @media(max-height:650px){
 
     .hud{
-
         transform:
             translate(-50%,-48%)
             scale(.82);
-
     }
 
     .info{
-
         bottom:82px;
-
     }
 
     .bottom{
-
         bottom:8px;
-
     }
 
     .status{
-
         top:78px;
-
     }
 
 }
@@ -1028,9 +829,7 @@ body:before{
     ====================================================== -->
 
     <div class="footer">
-
         JARVIS AI // LOCAL INTERFACE
-
     </div>
 
 
@@ -1038,7 +837,6 @@ body:before{
 
 
 <script>
-
 
 /* =========================================================
    ELEMENTI
@@ -1069,18 +867,15 @@ for(let i = 0; i < 40; i++){
     const p =
         document.createElement("span");
 
-
     const angle =
         Math.random() *
         Math.PI *
         2;
 
-
     const radius =
         35 +
         Math.random() *
         55;
-
 
     p.style.left =
         (
@@ -1090,7 +885,6 @@ for(let i = 0; i < 40; i++){
             1.8
         ) + "%";
 
-
     p.style.top =
         (
             50 +
@@ -1098,7 +892,6 @@ for(let i = 0; i < 40; i++){
             radius /
             1.8
         ) + "%";
-
 
     neural.appendChild(p);
 
@@ -1114,35 +907,28 @@ function updateClock(){
     const d =
         new Date();
 
-
     const h =
         String(
             d.getHours()
         ).padStart(2,"0");
-
 
     const m =
         String(
             d.getMinutes()
         ).padStart(2,"0");
 
-
     const s =
         String(
             d.getSeconds()
         ).padStart(2,"0");
 
-
     clock.innerHTML =
-
         h + ":" +
         m + ":" +
         s +
-
         "<br>LOCAL SYSTEM";
 
 }
-
 
 updateClock();
 
@@ -1164,15 +950,11 @@ function setState(text){
     voiceElement.textContent =
         text;
 
-
     if(
 
         text === "LISTENING" ||
-
         text === "HEARING" ||
-
         text === "THINKING" ||
-
         text === "SPEAKING"
 
     ){
@@ -1197,48 +979,180 @@ function setState(text){
 ========================================================= */
 
 const SpeechRecognition =
-
     window.SpeechRecognition ||
-
     window.webkitSpeechRecognition;
 
+let recognition = null;
 
-let recognition =
-    null;
-
-
-let listening =
-    false;
+let listening = false;
 
 
 /* =========================================================
-   FRASE AUTOMATICA DI THINKING
+   SELEZIONE VOCE ITALIANA
+========================================================= */
+
+let italianVoice = null;
+
+
+function loadVoices(){
+
+    const voices =
+        speechSynthesis.getVoices();
+
+    if(!voices.length){
+        return;
+    }
+
+
+    /*
+     * Cerchiamo prima una voce italiana
+     * che abbia caratteristiche tipicamente
+     * maschili nel nome.
+     */
+
+    const maleKeywords = [
+
+        "male",
+        "maschile",
+        "männlich",
+        "hombre",
+        "homme",
+        "man",
+        "stefano",
+        "luca",
+        "giorgio",
+        "marco",
+        "paolo",
+        "riccardo"
+
+    ];
+
+
+    const italianVoices =
+        voices.filter(
+            voice =>
+                voice.lang &&
+                voice.lang
+                    .toLowerCase()
+                    .startsWith("it")
+        );
+
+
+    if(!italianVoices.length){
+        return;
+    }
+
+
+    const maleVoice =
+        italianVoices.find(
+            voice => {
+
+                const name =
+                    voice.name
+                        .toLowerCase();
+
+                return maleKeywords.some(
+                    keyword =>
+                        name.includes(keyword)
+                );
+
+            }
+        );
+
+
+    if(maleVoice){
+
+        italianVoice =
+            maleVoice;
+
+        console.log(
+            "VOCE MASCHILE SELEZIONATA:",
+            maleVoice.name
+        );
+
+        return;
+    }
+
+
+    /*
+     * Se non viene identificata una voce
+     * maschile, scegliamo comunque una voce
+     * italiana di buona qualità.
+     */
+
+    italianVoice =
+        italianVoices.find(
+            voice =>
+                voice.localService
+        ) ||
+        italianVoices[0];
+
+
+    console.log(
+        "VOCE ITALIANA SELEZIONATA:",
+        italianVoice.name
+    );
+
+}
+
+
+loadVoices();
+
+
+if(
+    "speechSynthesis" in window
+){
+
+    speechSynthesis.onvoiceschanged =
+        loadVoices;
+
+}
+
+
+/* =========================================================
+   FRASE AUTOMATICA THINKING
 ========================================================= */
 
 function getThinkingPhrase(testo){
 
     const t =
-        testo.toLowerCase();
+        testo
+            .toLowerCase()
+            .trim();
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
+       SALUTO JARVIS
+    ===================================================== */
+
+    if(
+
+        t.includes("ciao jarvis") ||
+        t.includes("salve jarvis") ||
+        t.includes("buongiorno jarvis") ||
+        t.includes("buonasera jarvis") ||
+        t.includes("buonanotte jarvis") ||
+        t === "jarvis"
+
+    ){
+
+        return "Salve, signore. Come posso esserle utile?";
+
+    }
+
+
+    /* =====================================================
        TEMPERATURA / METEO
-    ----------------------------------------------------- */
+    ===================================================== */
 
     if(
 
         t.includes("temperatura") ||
-
         t.includes("gradi") ||
-
         t.includes("meteo") ||
-
         t.includes("tempo fa") ||
-
         t.includes("che tempo") ||
-
         t.includes("quanto fa caldo") ||
-
         t.includes("quanto fa freddo")
 
     ){
@@ -1248,16 +1162,14 @@ function getThinkingPhrase(testo){
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        ORA
-    ----------------------------------------------------- */
+    ===================================================== */
 
     if(
 
         t.includes("che ore") ||
-
         t.includes("che ora") ||
-
         t.includes("orario")
 
     ){
@@ -1267,16 +1179,14 @@ function getThinkingPhrase(testo){
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        CALENDARIO
-    ----------------------------------------------------- */
+    ===================================================== */
 
     if(
 
         t.includes("calendario") ||
-
         t.includes("appuntamento") ||
-
         t.includes("agenda")
 
     ){
@@ -1286,18 +1196,15 @@ function getThinkingPhrase(testo){
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        MEMORIA
-    ----------------------------------------------------- */
+    ===================================================== */
 
     if(
 
         t.includes("ricorda") ||
-
         t.includes("ricordami") ||
-
         t.includes("memoria") ||
-
         t.includes("ricordi")
 
     ){
@@ -1307,22 +1214,17 @@ function getThinkingPhrase(testo){
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        RICERCA
-    ----------------------------------------------------- */
+    ===================================================== */
 
     if(
 
         t.includes("cerca") ||
-
         t.includes("trova") ||
-
         t.includes("informazioni") ||
-
         t.includes("chi è") ||
-
         t.includes("cos'è") ||
-
         t.includes("cosa è")
 
     ){
@@ -1332,9 +1234,9 @@ function getThinkingPhrase(testo){
     }
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        GENERALE
-    ----------------------------------------------------- */
+    ===================================================== */
 
     return "Sto elaborando la richiesta, signore.";
 
@@ -1366,11 +1268,9 @@ function speak(text){
             "VOICE ERROR"
         );
 
-
         alert(
             "La sintesi vocale non è disponibile."
         );
-
 
         return;
 
@@ -1388,35 +1288,50 @@ function speak(text){
         );
 
 
-    /* Lingua */
+    /* =====================================================
+       LINGUA
+    ===================================================== */
 
     utterance.lang =
         "it-IT";
 
 
-    /* Stile vocale */
+    /* =====================================================
+       VOCE
+    ===================================================== */
+
+    if(italianVoice){
+
+        utterance.voice =
+            italianVoice;
+
+    }
+
+
+    /* =====================================================
+       STILE PIÙ NATURALE
+    ===================================================== */
 
     utterance.rate =
-        0.9;
-
+        0.88;
 
     utterance.pitch =
-        1;
-
+        0.82;
 
     utterance.volume =
         1;
 
 
-    /* Voce avviata */
+    /* =====================================================
+       AVVIO
+    ===================================================== */
 
     utterance.onstart =
         function(){
 
             console.log(
-                "VOCE AVVIATA"
+                "VOCE JARVIS AVVIATA"
             );
-
 
             setState(
                 "SPEAKING"
@@ -1425,15 +1340,16 @@ function speak(text){
         };
 
 
-    /* Voce terminata */
+    /* =====================================================
+       FINE
+    ===================================================== */
 
     utterance.onend =
         function(){
 
             console.log(
-                "VOCE TERMINATA"
+                "VOCE JARVIS TERMINATA"
             );
-
 
             setState(
                 "SYSTEM READY"
@@ -1442,7 +1358,9 @@ function speak(text){
         };
 
 
-    /* Errore */
+    /* =====================================================
+       ERRORE
+    ===================================================== */
 
     utterance.onerror =
         function(event){
@@ -1452,15 +1370,12 @@ function speak(text){
                 event
             );
 
-
             setState(
                 "VOICE ERROR"
             );
 
         };
 
-
-    /* Avvio */
 
     speechSynthesis.speak(
         utterance
@@ -1480,8 +1395,6 @@ function startListening(){
     );
 
 
-    /* Evita doppio avvio */
-
     if(listening){
 
         return;
@@ -1489,26 +1402,20 @@ function startListening(){
     }
 
 
-    /* Controllo compatibilità */
-
     if(!SpeechRecognition){
 
         setState(
             "VOICE ERROR"
         );
 
-
         alert(
             "Il browser non supporta il riconoscimento vocale."
         );
-
 
         return;
 
     }
 
-
-    /* Crea riconoscimento */
 
     recognition =
         new SpeechRecognition();
@@ -1541,10 +1448,8 @@ function startListening(){
                 "MICROFONO ATTIVO"
             );
 
-
             listening =
                 true;
-
 
             setState(
                 "LISTENING"
@@ -1564,7 +1469,6 @@ function startListening(){
                 "AUDIO RICEVUTO"
             );
 
-
             setState(
                 "HEARING"
             );
@@ -1582,7 +1486,6 @@ function startListening(){
             console.log(
                 "PARLATO RILEVATO"
             );
-
 
             setState(
                 "LISTENING"
@@ -1604,12 +1507,13 @@ function startListening(){
 
 
             const testo =
-                event.results[0][0]
-                .transcript;
+                event
+                    .results[0][0]
+                    .transcript;
 
 
             console.log(
-                "TESTO:",
+                "TESTO RICONOSCIUTO:",
                 testo
             );
 
@@ -1625,7 +1529,7 @@ function startListening(){
             );
 
 
-            /* Selezione automatica */
+            /* Determina risposta */
 
             const thinkingPhrase =
                 getThinkingPhrase(
@@ -1634,12 +1538,16 @@ function startListening(){
 
 
             console.log(
-                "THINKING:",
+                "RISPOSTA JARVIS:",
                 thinkingPhrase
             );
 
 
-            /* Piccola pausa */
+            /*
+             * Piccola pausa:
+             * JARVIS rimane in THINKING
+             * prima di parlare.
+             */
 
             setTimeout(
                 function(){
@@ -1666,10 +1574,8 @@ function startListening(){
                 "NESSUN RISULTATO"
             );
 
-
             listening =
                 false;
-
 
             setState(
                 "NO COMMAND"
@@ -1702,18 +1608,13 @@ function startListening(){
                 event.error
             );
 
-
             listening =
                 false;
 
 
             setState(
-
                 "ERROR " +
-
-                event.error
-                    .toUpperCase()
-
+                event.error.toUpperCase()
             );
 
 
@@ -1742,14 +1643,13 @@ function startListening(){
                 "ASCOLTO TERMINATO"
             );
 
-
             listening =
                 false;
 
 
             /*
-             * Evita di interrompere
-             * THINKING o SPEAKING.
+             * Non interrompere THINKING
+             * o SPEAKING.
              */
 
             if(
@@ -1772,7 +1672,7 @@ function startListening(){
 
 
     /* =====================================================
-       AVVIO MICROFONO
+       AVVIO
     ===================================================== */
 
     try{
@@ -1788,10 +1688,8 @@ function startListening(){
             error
         );
 
-
         listening =
             false;
-
 
         setState(
             "START ERROR"
@@ -1803,7 +1701,7 @@ function startListening(){
 
 
 /* =========================================================
-   PULSANTE JARVIS
+   PULSANTE
 ========================================================= */
 
 mic.addEventListener(
