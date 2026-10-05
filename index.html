@@ -761,7 +761,6 @@ body:before{
 
     <div class="info">
 
-
         <div class="panel">
 
             <div class="label">
@@ -802,7 +801,6 @@ body:before{
             </div>
 
         </div>
-
 
     </div>
 
@@ -1004,30 +1002,6 @@ function loadVoices(){
     }
 
 
-    /*
-     * Cerchiamo prima una voce italiana
-     * che abbia caratteristiche tipicamente
-     * maschili nel nome.
-     */
-
-    const maleKeywords = [
-
-        "male",
-        "maschile",
-        "männlich",
-        "hombre",
-        "homme",
-        "man",
-        "stefano",
-        "luca",
-        "giorgio",
-        "marco",
-        "paolo",
-        "riccardo"
-
-    ];
-
-
     const italianVoices =
         voices.filter(
             voice =>
@@ -1041,6 +1015,28 @@ function loadVoices(){
     if(!italianVoices.length){
         return;
     }
+
+
+    /*
+     * Proviamo a trovare una voce maschile.
+     */
+
+    const maleKeywords = [
+
+        "male",
+        "maschile",
+        "man",
+        "uomo",
+        "stefano",
+        "luca",
+        "giorgio",
+        "marco",
+        "paolo",
+        "riccardo",
+        "mattia",
+        "davide"
+
+    ];
 
 
     const maleVoice =
@@ -1065,31 +1061,20 @@ function loadVoices(){
         italianVoice =
             maleVoice;
 
-        console.log(
-            "VOCE MASCHILE SELEZIONATA:",
-            maleVoice.name
-        );
+    }else{
 
-        return;
+        italianVoice =
+            italianVoices.find(
+                voice =>
+                    voice.localService
+            ) ||
+            italianVoices[0];
+
     }
 
 
-    /*
-     * Se non viene identificata una voce
-     * maschile, scegliamo comunque una voce
-     * italiana di buona qualità.
-     */
-
-    italianVoice =
-        italianVoices.find(
-            voice =>
-                voice.localService
-        ) ||
-        italianVoices[0];
-
-
     console.log(
-        "VOCE ITALIANA SELEZIONATA:",
+        "VOCE SELEZIONATA:",
         italianVoice.name
     );
 
@@ -1110,7 +1095,72 @@ if(
 
 
 /* =========================================================
-   FRASE AUTOMATICA THINKING
+   RICONOSCIMENTO SALUTO
+========================================================= */
+
+function isJarvisGreeting(testo){
+
+    const t =
+        testo
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(
+                /[\u0300-\u036f]/g,
+                ""
+            )
+            .replace(
+                /[^a-z0-9\s]/g,
+                " "
+            )
+            .replace(
+                /\s+/g,
+                " "
+            )
+            .trim();
+
+
+    console.log(
+        "TESTO NORMALIZZATO:",
+        t
+    );
+
+
+    /*
+     * Basta che venga pronunciato JARVIS.
+     */
+
+    if(
+        t.includes("jarvis")
+    ){
+
+        return true;
+
+    }
+
+
+    /*
+     * Alcuni riconoscimenti vocali
+     * possono storpiare leggermente il nome.
+     */
+
+    if(
+        t.includes("jarvis") ||
+        t.includes("jarvis") ||
+        t.includes("jarvis")
+    ){
+
+        return true;
+
+    }
+
+
+    return false;
+
+}
+
+
+/* =========================================================
+   FRASE THINKING
 ========================================================= */
 
 function getThinkingPhrase(testo){
@@ -1118,22 +1168,26 @@ function getThinkingPhrase(testo){
     const t =
         testo
             .toLowerCase()
+            .normalize("NFD")
+            .replace(
+                /[\u0300-\u036f]/g,
+                ""
+            )
             .trim();
 
 
+    console.log(
+        "TESTO ANALIZZATO:",
+        t
+    );
+
+
     /* =====================================================
-       SALUTO JARVIS
+       JARVIS
     ===================================================== */
 
     if(
-
-        t.includes("ciao jarvis") ||
-        t.includes("salve jarvis") ||
-        t.includes("buongiorno jarvis") ||
-        t.includes("buonasera jarvis") ||
-        t.includes("buonanotte jarvis") ||
-        t === "jarvis"
-
+        isJarvisGreeting(testo)
     ){
 
         return "Salve, signore. Come posso esserle utile?";
@@ -1223,9 +1277,9 @@ function getThinkingPhrase(testo){
         t.includes("cerca") ||
         t.includes("trova") ||
         t.includes("informazioni") ||
-        t.includes("chi è") ||
-        t.includes("cos'è") ||
-        t.includes("cosa è")
+        t.includes("chi e") ||
+        t.includes("cos e") ||
+        t.includes("cosa e")
 
     ){
 
@@ -1277,8 +1331,6 @@ function speak(text){
     }
 
 
-    /* Ferma eventuale voce precedente */
-
     speechSynthesis.cancel();
 
 
@@ -1288,17 +1340,9 @@ function speak(text){
         );
 
 
-    /* =====================================================
-       LINGUA
-    ===================================================== */
-
     utterance.lang =
         "it-IT";
 
-
-    /* =====================================================
-       VOCE
-    ===================================================== */
 
     if(italianVoice){
 
@@ -1308,9 +1352,9 @@ function speak(text){
     }
 
 
-    /* =====================================================
-       STILE PIÙ NATURALE
-    ===================================================== */
+    /*
+     * Voce più lenta e meno acuta.
+     */
 
     utterance.rate =
         0.88;
@@ -1322,16 +1366,8 @@ function speak(text){
         1;
 
 
-    /* =====================================================
-       AVVIO
-    ===================================================== */
-
     utterance.onstart =
         function(){
-
-            console.log(
-                "VOCE JARVIS AVVIATA"
-            );
 
             setState(
                 "SPEAKING"
@@ -1340,16 +1376,8 @@ function speak(text){
         };
 
 
-    /* =====================================================
-       FINE
-    ===================================================== */
-
     utterance.onend =
         function(){
-
-            console.log(
-                "VOCE JARVIS TERMINATA"
-            );
 
             setState(
                 "SYSTEM READY"
@@ -1357,10 +1385,6 @@ function speak(text){
 
         };
 
-
-    /* =====================================================
-       ERRORE
-    ===================================================== */
 
     utterance.onerror =
         function(event){
@@ -1385,7 +1409,7 @@ function speak(text){
 
 
 /* =========================================================
-   AVVIO ASCOLTO
+   ASCOLTO
 ========================================================= */
 
 function startListening(){
@@ -1424,29 +1448,22 @@ function startListening(){
     recognition.lang =
         "it-IT";
 
-
     recognition.continuous =
         false;
-
 
     recognition.interimResults =
         false;
 
-
     recognition.maxAlternatives =
-        1;
+        3;
 
 
     /* =====================================================
-       PARTENZA
+       START
     ===================================================== */
 
     recognition.onstart =
         function(){
-
-            console.log(
-                "MICROFONO ATTIVO"
-            );
 
             listening =
                 true;
@@ -1465,10 +1482,6 @@ function startListening(){
     recognition.onaudiostart =
         function(){
 
-            console.log(
-                "AUDIO RICEVUTO"
-            );
-
             setState(
                 "HEARING"
             );
@@ -1482,10 +1495,6 @@ function startListening(){
 
     recognition.onspeechstart =
         function(){
-
-            console.log(
-                "PARLATO RILEVATO"
-            );
 
             setState(
                 "LISTENING"
@@ -1506,14 +1515,68 @@ function startListening(){
             );
 
 
-            const testo =
-                event
-                    .results[0][0]
-                    .transcript;
+            let testo =
+                "";
+
+
+            /*
+             * Controlliamo tutte le alternative
+             * disponibili.
+             */
+
+            for(
+                let i = 0;
+                i < event.results[0].length;
+                i++
+            ){
+
+                const alternativa =
+                    event.results[0][i].transcript;
+
+                console.log(
+                    "ALTERNATIVA:",
+                    alternativa
+                );
+
+
+                /*
+                 * Se una delle alternative contiene
+                 * JARVIS, utilizziamo quella.
+                 */
+
+                if(
+                    alternativa
+                        .toLowerCase()
+                        .includes("jarvis")
+                ){
+
+                    testo =
+                        alternativa;
+
+                    break;
+
+                }
+
+
+                /*
+                 * Altrimenti utilizziamo
+                 * la prima alternativa.
+                 */
+
+                if(
+                    i === 0
+                ){
+
+                    testo =
+                        alternativa;
+
+                }
+
+            }
 
 
             console.log(
-                "TESTO RICONOSCIUTO:",
+                "TESTO FINALE:",
                 testo
             );
 
@@ -1522,38 +1585,28 @@ function startListening(){
                 false;
 
 
-            /* THINKING */
-
             setState(
                 "THINKING"
             );
 
 
-            /* Determina risposta */
-
-            const thinkingPhrase =
+            const response =
                 getThinkingPhrase(
                     testo
                 );
 
 
             console.log(
-                "RISPOSTA JARVIS:",
-                thinkingPhrase
+                "RISPOSTA:",
+                response
             );
 
-
-            /*
-             * Piccola pausa:
-             * JARVIS rimane in THINKING
-             * prima di parlare.
-             */
 
             setTimeout(
                 function(){
 
                     speak(
-                        thinkingPhrase
+                        response
                     );
 
                 },
@@ -1569,10 +1622,6 @@ function startListening(){
 
     recognition.onnomatch =
         function(){
-
-            console.log(
-                "NESSUN RISULTATO"
-            );
 
             listening =
                 false;
@@ -1608,6 +1657,7 @@ function startListening(){
                 event.error
             );
 
+
             listening =
                 false;
 
@@ -1633,24 +1683,15 @@ function startListening(){
 
 
     /* =====================================================
-       FINE ASCOLTO
+       FINE
     ===================================================== */
 
     recognition.onend =
         function(){
 
-            console.log(
-                "ASCOLTO TERMINATO"
-            );
-
             listening =
                 false;
 
-
-            /*
-             * Non interrompere THINKING
-             * o SPEAKING.
-             */
 
             if(
 
@@ -1688,8 +1729,10 @@ function startListening(){
             error
         );
 
+
         listening =
             false;
+
 
         setState(
             "START ERROR"
