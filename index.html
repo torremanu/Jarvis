@@ -1,672 +1,750 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
->
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
 
-<meta
-    name="theme-color"
-    content="#020912"
->
+<meta name="theme-color"
+      content="#020b16">
 
-<meta
-    name="mobile-web-app-capable"
-    content="yes"
->
+<meta name="mobile-web-app-capable"
+      content="yes">
+
+<meta name="apple-mobile-web-app-capable"
+      content="yes">
 
 <title>JARVIS AI</title>
 
-
 <style>
-
-/* =========================================================
-   BASE
-========================================================= */
-
-:root{
-    --cyan:#00eaff;
-    --blue:#147bff;
-    --bg:#020912;
-    --panel:rgba(3,20,31,.72);
-}
 
 *{
     box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
+    margin:0;
+    padding:0;
 }
 
-html,
-body{
-    margin:0;
+html,body{
+
     width:100%;
     height:100%;
-    overflow:hidden;
-    background:var(--bg);
-    color:var(--cyan);
-    font-family:Arial,Helvetica,sans-serif;
-}
 
-body{
+    overflow:hidden;
+
     background:
         radial-gradient(
-            circle at 50% 45%,
-            rgba(0,234,255,.10),
-            transparent 32%
-        ),
-        radial-gradient(
-            circle at 50% 100%,
-            rgba(20,123,255,.08),
-            transparent 40%
-        ),
-        #020912;
-}
-
-body:before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    opacity:.22;
-
-    background-image:
-        linear-gradient(
-            rgba(0,234,255,.08) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(0,234,255,.08) 1px,
-            transparent 1px
+            circle at center,
+            #06233d 0%,
+            #020b16 45%,
+            #000308 100%
         );
 
-    background-size:34px 34px;
+    color:#00eaff;
 
-    mask-image:
-        linear-gradient(
-            to bottom,
-            transparent,
-            #000 15%,
-            #000 85%,
-            transparent
-        );
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 }
 
 
-/* =========================================================
+/* =====================================================
    APP
-========================================================= */
+===================================================== */
 
 .app{
+
+    width:100%;
     height:100%;
+
     position:relative;
+
     display:flex;
     flex-direction:column;
+
     align-items:center;
+
+    overflow:hidden;
 }
 
 
-/* =========================================================
-   TOP
-========================================================= */
+/* =====================================================
+   TOP BAR
+===================================================== */
 
 .top{
-    position:absolute;
-    top:22px;
-    left:20px;
-    right:20px;
+
+    width:100%;
+
+    padding:
+        18px
+        20px
+        10px;
 
     display:flex;
+
     justify-content:space-between;
-    align-items:flex-start;
+    align-items:center;
 
-    z-index:5;
-}
+    position:relative;
 
-.brand{
-    font-size:27px;
-    letter-spacing:8px;
-    font-weight:300;
-
-    text-shadow:
-        0 0 16px var(--cyan);
-}
-
-.sub{
-    font-size:9px;
-    letter-spacing:3px;
-    margin-top:5px;
-    opacity:.65;
-}
-
-.clock{
-    text-align:right;
-    font-size:11px;
-    letter-spacing:2px;
-    opacity:.75;
+    z-index:20;
 }
 
 
-/* =========================================================
-   STATO
-========================================================= */
+.logo{
 
-.status{
-    position:absolute;
-    top:92px;
+    font-size:18px;
 
-    text-align:center;
+    font-weight:bold;
 
-    z-index:5;
-
-    font-size:12px;
     letter-spacing:4px;
 
     text-shadow:
-        0 0 12px var(--cyan);
-}
-
-.status .dot{
-    display:inline-block;
-
-    width:7px;
-    height:7px;
-
-    border-radius:50%;
-
-    background:var(--cyan);
-
-    box-shadow:
-        0 0 12px var(--cyan);
-
-    margin-right:9px;
+        0 0 8px #00eaff,
+        0 0 18px #008cff;
 }
 
 
-/* =========================================================
-   NEURAL CORE
-========================================================= */
+.clock{
+
+    font-size:15px;
+
+    letter-spacing:2px;
+
+    color:#8eefff;
+
+    text-shadow:
+        0 0 8px #00eaff;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status{
+
+    margin-top:8px;
+
+    font-size:13px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    color:#00eaff;
+
+    text-shadow:
+        0 0 8px #00eaff,
+        0 0 20px #0077ff;
+
+    transition:
+        color .3s,
+        text-shadow .3s;
+}
+
+
+.status.listening{
+
+    color:#00ff9d;
+
+    text-shadow:
+        0 0 8px #00ff9d,
+        0 0 20px #00ff9d;
+}
+
+
+.status.thinking{
+
+    color:#ffe600;
+
+    text-shadow:
+        0 0 8px #ffe600,
+        0 0 20px #ff9900;
+}
+
+
+.status.speaking{
+
+    color:#00eaff;
+
+    text-shadow:
+        0 0 8px #00eaff,
+        0 0 25px #008cff;
+}
+
+
+/* =====================================================
+   HUD
+===================================================== */
 
 .hud{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    pointer-events:none;
+
+    opacity:.5;
+}
+
+
+.hud:before{
+
+    content:"";
+
     position:absolute;
 
     top:50%;
     left:50%;
 
-    width:310px;
-    height:310px;
+    width:90vw;
+    height:90vw;
+
+    max-width:600px;
+    max-height:600px;
 
     transform:
-        translate(-50%,-49%);
+        translate(-50%,-50%);
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
+    border:
 
+        1px solid
+        rgba(0,234,255,.18);
 
-/* =========================================================
-   RINGS
-========================================================= */
-
-.ring,
-.ring2,
-.ring3,
-.ring4{
-    position:absolute;
     border-radius:50%;
 
-    border:
-        1px solid
-        rgba(0,234,255,.42);
-}
-
-.ring{
-    width:285px;
-    height:285px;
-
-    border-style:dashed;
-
-    animation:
-        spin
-        18s
-        linear
-        infinite;
-}
-
-.ring2{
-    width:240px;
-    height:240px;
-
-    border-color:
-        rgba(20,123,255,.7);
-
-    border-top-color:
-        transparent;
-
-    border-bottom-color:
-        transparent;
-
-    animation:
-        spinBack
-        10s
-        linear
-        infinite;
-}
-
-.ring3{
-    width:190px;
-    height:190px;
-
-    border:
-        2px solid
-        rgba(0,234,255,.38);
-
-    border-left-color:
-        transparent;
-
-    border-right-color:
-        transparent;
-
-    animation:
-        spin
-        7s
-        linear
-        infinite;
-}
-
-.ring4{
-    width:138px;
-    height:138px;
-
-    border:
-        1px solid
-        rgba(0,234,255,.8);
-
     box-shadow:
-        0 0 28px
-        rgba(0,234,255,.16),
 
-        inset 0 0 22px
-        rgba(0,234,255,.12);
+        0 0 40px
+        rgba(0,234,255,.08),
+
+        inset 0 0 40px
+        rgba(0,234,255,.05);
 }
 
 
-/* =========================================================
-   TICK
-========================================================= */
+/* =====================================================
+   CENTRAL AREA
+===================================================== */
 
-.tick{
+.center{
+
     position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:
+        translate(-50%,-50%);
 
     width:300px;
     height:300px;
 
-    border-radius:50%;
-
-    animation:
-        spinBack
-        25s
-        linear
-        infinite;
-}
-
-.tick:before,
-.tick:after{
-    content:"";
-
-    position:absolute;
-
-    left:50%;
-    top:-4px;
-
-    width:2px;
-    height:20px;
-
-    background:var(--cyan);
-
-    box-shadow:
-        0 290px 0 var(--cyan);
-}
-
-.tick:after{
-    transform:
-        rotate(90deg);
-
-    transform-origin:
-        1px 154px;
-}
-
-
-/* =========================================================
-   CORE
-========================================================= */
-
-.core{
-    width:74px;
-    height:74px;
-
-    border-radius:50%;
-
-    position:relative;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.95) 0 3%,
-            rgba(0,234,255,.95) 7%,
-            rgba(0,234,255,.25) 34%,
-            transparent 68%
-        );
-
-    box-shadow:
-        0 0 25px var(--cyan),
-        0 0 65px rgba(0,234,255,.35);
-
-    animation:
-        pulse
-        2.2s
-        ease-in-out
-        infinite;
-}
-
-.core:before,
-.core:after{
-    content:"";
-
-    position:absolute;
-
-    inset:17px;
-
-    border:
-        1px solid
-        var(--cyan);
-
-    border-radius:50%;
-}
-
-.core:after{
-    inset:27px;
-
-    border-color:white;
-
-    opacity:.7;
-}
-
-
-/* =========================================================
-   SCAN
-========================================================= */
-
-.scan{
-    position:absolute;
-
-    width:250px;
-    height:2px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--cyan),
-            transparent
-        );
-
-    box-shadow:
-        0 0 10px var(--cyan);
-
-    animation:
-        scan
-        4s
-        ease-in-out
-        infinite;
-}
-
-
-/* =========================================================
-   PARTICELLE
-========================================================= */
-
-#neural span{
-    position:absolute;
-
-    width:3px;
-    height:3px;
-
-    border-radius:50%;
-
-    background:var(--cyan);
-
-    box-shadow:
-        0 0 8px var(--cyan);
-
-    animation:
-        particle
-        3s
-        ease-in-out
-        infinite alternate;
-}
-
-
-/* =========================================================
-   INFO
-========================================================= */
-
-.info{
-    position:absolute;
-
-    bottom:105px;
-    left:18px;
-    right:18px;
-
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr 1fr;
-
-    gap:8px;
-
-    z-index:5;
-}
-
-.panel{
-    border:
-        1px solid
-        rgba(0,234,255,.28);
-
-    background:
-        var(--panel);
-
-    padding:
-        10px 8px;
-
-    min-height:52px;
-
-    box-shadow:
-        inset 0 0 15px
-        rgba(0,234,255,.03);
-}
-
-.label{
-    font-size:8px;
-    letter-spacing:2px;
-    opacity:.55;
-}
-
-.value{
-    font-size:11px;
-    letter-spacing:1px;
-    margin-top:7px;
-}
-
-
-/* =========================================================
-   MICROFONO
-========================================================= */
-
-.bottom{
-    position:absolute;
-
-    bottom:25px;
-    left:0;
-    right:0;
-
     display:flex;
-    justify-content:center;
 
-    z-index:10;
+    justify-content:center;
+    align-items:center;
 }
 
-.mic{
-    width:70px;
-    height:70px;
+
+/* =====================================================
+   RINGS
+===================================================== */
+
+.ring{
+
+    position:absolute;
 
     border-radius:50%;
 
     border:
         1px solid
-        var(--cyan);
-
-    background:
-        rgba(0,234,255,.05);
-
-    color:var(--cyan);
-
-    font-size:24px;
+        rgba(0,234,255,.6);
 
     box-shadow:
-        0 0 22px
-        rgba(0,234,255,.18);
-
-    transition:.2s;
+        0 0 12px
+        rgba(0,234,255,.2);
 }
 
-.mic.active{
-    background:
-        rgba(0,234,255,.18);
 
-    box-shadow:
-        0 0 35px
+.ring1{
+
+    width:260px;
+    height:260px;
+
+    animation:
+        rotate 18s linear infinite;
+}
+
+
+.ring2{
+
+    width:220px;
+    height:220px;
+
+    border-style:dashed;
+
+    animation:
+        rotateReverse 12s linear infinite;
+}
+
+
+.ring3{
+
+    width:175px;
+    height:175px;
+
+    border:
+        2px solid
         rgba(0,234,255,.65);
 
-    transform:
-        scale(1.08);
+    animation:
+        pulse 3s ease-in-out infinite;
 }
 
 
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer{
-    position:absolute;
-
-    bottom:5px;
-
-    font-size:7px;
-
-    letter-spacing:2px;
-
-    opacity:.35;
-}
-
-
-/* =========================================================
-   ANIMAZIONI
-========================================================= */
-
-@keyframes spin{
-    to{
-        transform:
-            rotate(360deg);
-    }
-}
-
-@keyframes spinBack{
-    to{
-        transform:
-            rotate(-360deg);
-    }
-}
-
-@keyframes pulse{
-    50%{
-        transform:
-            scale(1.12);
-
-        filter:
-            brightness(1.3);
-    }
-}
-
-@keyframes scan{
-
-    0%,
-    100%{
-        transform:
-            translateY(-100px);
-
-        opacity:0;
-    }
-
-    20%,
-    80%{
-        opacity:.75;
-    }
-
-    50%{
-        transform:
-            translateY(100px);
-    }
-}
-
-@keyframes particle{
+@keyframes rotate{
 
     from{
-        transform:
-            scale(.6);
-
-        opacity:.35;
+        transform:rotate(0deg);
     }
 
     to{
-        transform:
-            scale(1.5);
+        transform:rotate(360deg);
+    }
+}
+
+
+@keyframes rotateReverse{
+
+    from{
+        transform:rotate(360deg);
+    }
+
+    to{
+        transform:rotate(0deg);
+    }
+}
+
+
+@keyframes pulse{
+
+    0%,100%{
+
+        transform:scale(1);
+
+        opacity:.6;
+    }
+
+    50%{
+
+        transform:scale(1.08);
 
         opacity:1;
     }
 }
 
 
-/* =========================================================
-   SCHERMI PICCOLI
-========================================================= */
+/* =====================================================
+   NEURAL CORE
+===================================================== */
 
-@media(max-height:650px){
+.neural{
 
-    .hud{
+    position:absolute;
+
+    width:110px;
+    height:110px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+}
+
+
+.core{
+
+    width:65px;
+    height:65px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+            circle,
+            #ffffff 0%,
+            #00eaff 18%,
+            #0077ff 45%,
+            #001d3d 75%,
+            transparent 100%
+        );
+
+    box-shadow:
+
+        0 0 15px #00eaff,
+        0 0 35px #008cff,
+        0 0 70px rgba(0,140,255,.7);
+
+    animation:
+        corePulse 2s ease-in-out infinite;
+}
+
+
+@keyframes corePulse{
+
+    0%,100%{
+
+        transform:scale(.9);
+
+        opacity:.8;
+    }
+
+    50%{
+
+        transform:scale(1.08);
+
+        opacity:1;
+    }
+}
+
+
+/* =====================================================
+   PARTICELLE NEURALI
+===================================================== */
+
+.neural span{
+
+    position:absolute;
+
+    width:4px;
+    height:4px;
+
+    border-radius:50%;
+
+    background:#00eaff;
+
+    box-shadow:
+        0 0 8px #00eaff;
+
+    animation:
+        particle 3s linear infinite;
+}
+
+
+.neural span:nth-child(1){
+    top:5%;
+    left:50%;
+}
+
+.neural span:nth-child(2){
+    top:25%;
+    left:90%;
+}
+
+.neural span:nth-child(3){
+    top:70%;
+    left:95%;
+}
+
+.neural span:nth-child(4){
+    top:95%;
+    left:50%;
+}
+
+.neural span:nth-child(5){
+    top:75%;
+    left:10%;
+}
+
+.neural span:nth-child(6){
+    top:25%;
+    left:5%;
+}
+
+
+@keyframes particle{
+
+    0%{
+        transform:scale(.5);
+        opacity:.2;
+    }
+
+    50%{
+        transform:scale(1.5);
+        opacity:1;
+    }
+
+    100%{
+        transform:scale(.5);
+        opacity:.2;
+    }
+}
+
+
+/* =====================================================
+   SCAN LINE
+===================================================== */
+
+.scan{
+
+    position:absolute;
+
+    width:150px;
+    height:1px;
+
+    background:#00eaff;
+
+    box-shadow:
+        0 0 8px #00eaff,
+        0 0 20px #00eaff;
+
+    animation:
+        scan 3s ease-in-out infinite;
+}
+
+
+@keyframes scan{
+
+    0%,100%{
         transform:
-            translate(-50%,-48%)
+            translateY(-70px);
+        opacity:0;
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    50%{
+        transform:
+            translateY(70px);
+        opacity:1;
+    }
+
+    80%{
+        opacity:0;
+    }
+}
+
+
+/* =====================================================
+   MIC BUTTON
+===================================================== */
+
+.mic{
+
+    position:absolute;
+
+    bottom:50px;
+
+    width:78px;
+    height:78px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(0,234,255,.8);
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(0,234,255,.18),
+            rgba(0,50,80,.45)
+        );
+
+    box-shadow:
+
+        0 0 15px
+        rgba(0,234,255,.4),
+
+        inset 0 0 20px
+        rgba(0,234,255,.1);
+
+    color:#00eaff;
+
+    font-size:28px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    z-index:30;
+
+    transition:
+        transform .2s,
+        box-shadow .2s;
+}
+
+
+.mic:active{
+
+    transform:scale(.92);
+
+    box-shadow:
+
+        0 0 30px
+        rgba(0,234,255,.8);
+}
+
+
+.mic.listening{
+
+    border-color:#00ff9d;
+
+    color:#00ff9d;
+
+    box-shadow:
+
+        0 0 20px #00ff9d,
+        0 0 45px rgba(0,255,157,.5);
+
+    animation:
+        micPulse 1s infinite;
+}
+
+
+@keyframes micPulse{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.08);
+    }
+}
+
+
+/* =====================================================
+   INFO PANELS
+===================================================== */
+
+.panel{
+
+    position:absolute;
+
+    width:135px;
+
+    padding:8px 10px;
+
+    border:
+        1px solid
+        rgba(0,234,255,.25);
+
+    background:
+        rgba(0,20,35,.35);
+
+    font-size:9px;
+
+    letter-spacing:1.5px;
+
+    color:#55dff5;
+
+    text-transform:uppercase;
+}
+
+
+.panel.left{
+
+    left:12px;
+
+    bottom:145px;
+}
+
+
+.panel.right{
+
+    right:12px;
+
+    bottom:145px;
+}
+
+
+.panel strong{
+
+    display:block;
+
+    color:#00eaff;
+
+    margin-bottom:3px;
+}
+
+
+/* =====================================================
+   VOICE TEXT
+===================================================== */
+
+.voice{
+
+    position:absolute;
+
+    bottom:135px;
+
+    width:90%;
+
+    text-align:center;
+
+    min-height:24px;
+
+    font-size:13px;
+
+    letter-spacing:1px;
+
+    color:#baf7ff;
+
+    text-shadow:
+        0 0 8px
+        rgba(0,234,255,.8);
+
+    z-index:20;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-height:700px){
+
+    .center{
+
+        transform:
+            translate(-50%,-52%)
             scale(.82);
     }
 
-    .info{
-        bottom:82px;
+    .mic{
+
+        bottom:25px;
     }
 
-    .bottom{
-        bottom:8px;
+    .voice{
+
+        bottom:110px;
     }
 
-    .status{
-        top:78px;
-    }
+    .panel{
 
+        bottom:100px;
+    }
 }
 
 </style>
@@ -680,253 +758,161 @@ body:before{
 <div class="app">
 
 
-    <!-- =====================================================
-         TESTATA
-    ====================================================== -->
+    <!-- =================================================
+         TOP
+    ================================================= -->
 
     <div class="top">
 
-        <div>
-
-            <div class="brand">
-                JARVIS
-            </div>
-
-            <div class="sub">
-                PERSONAL AI SYSTEM
-            </div>
-
+        <div class="logo">
+            JARVIS
         </div>
-
 
         <div
             class="clock"
-            id="clock"
-        >
-            --:--:--
-            <br>
-            LOCAL SYSTEM
+            id="clock">
+            --:--
         </div>
 
     </div>
 
 
-    <!-- =====================================================
-         STATO
-    ====================================================== -->
+    <!-- =================================================
+         STATUS
+    ================================================= -->
 
-    <div class="status">
+    <div
+        class="status"
+        id="status">
 
-        <span
-            class="dot"
-            id="dot"
-        ></span>
-
-        <span id="status">
-            SYSTEM READY
-        </span>
+        SYSTEM ONLINE
 
     </div>
 
 
-    <!-- =====================================================
-         NEURAL CORE
-    ====================================================== -->
+    <!-- =================================================
+         HUD
+    ================================================= -->
 
-    <div
-        class="hud"
-        id="neural"
-    >
+    <div class="hud"></div>
 
-        <div class="ring"></div>
 
-        <div class="ring2"></div>
+    <!-- =================================================
+         CENTER
+    ================================================= -->
 
-        <div class="ring3"></div>
+    <div class="center">
 
-        <div class="ring4"></div>
 
-        <div class="tick"></div>
+        <div class="ring ring1"></div>
+
+        <div class="ring ring2"></div>
+
+        <div class="ring ring3"></div>
+
+
+        <div
+            class="neural"
+            id="neural">
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+            <div class="core"></div>
+
+        </div>
+
 
         <div class="scan"></div>
 
-        <div class="core"></div>
 
     </div>
 
 
-    <!-- =====================================================
-         INFORMAZIONI
-    ====================================================== -->
+    <!-- =================================================
+         VOICE
+    ================================================= -->
 
-    <div class="info">
+    <div
+        class="voice"
+        id="voice">
 
-        <div class="panel">
-
-            <div class="label">
-                SYSTEM
-            </div>
-
-            <div class="value">
-                ONLINE
-            </div>
-
-        </div>
-
-
-        <div class="panel">
-
-            <div class="label">
-                MEMORY
-            </div>
-
-            <div class="value">
-                LOCAL
-            </div>
-
-        </div>
-
-
-        <div class="panel">
-
-            <div class="label">
-                MIC
-            </div>
-
-            <div
-                class="value"
-                id="voice"
-            >
-                STANDBY
-            </div>
-
-        </div>
+        Premi il microfono per parlare
 
     </div>
 
 
-    <!-- =====================================================
-         MICROFONO
-    ====================================================== -->
+    <!-- =================================================
+         PANELS
+    ================================================= -->
 
-    <div class="bottom">
+    <div class="panel left">
 
-        <button
-            class="mic"
-            id="mic"
-            aria-label="Attiva JARVIS"
-        >
-            ◉
-        </button>
+        <strong>SYSTEM</strong>
+
+        ONLINE
 
     </div>
 
 
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
+    <div class="panel right">
 
-    <div class="footer">
-        JARVIS AI // LOCAL INTERFACE
+        <strong>MEMORY</strong>
+
+        LOCAL
+
     </div>
+
+
+    <!-- =================================================
+         MICROPHONE
+    ================================================= -->
+
+    <button
+        class="mic"
+        id="mic"
+        aria-label="Attiva JARVIS">
+
+        🎙
+
+    </button>
 
 
 </div>
 
 
+
 <script>
 
-/* =========================================================
-   ELEMENTI
-========================================================= */
-
-const statusElement =
-    document.getElementById("status");
-
-const voiceElement =
-    document.getElementById("voice");
-
-const mic =
-    document.getElementById("mic");
-
-const neural =
-    document.getElementById("neural");
-
-const clock =
-    document.getElementById("clock");
-
-
-/* =========================================================
-   PARTICELLE
-========================================================= */
-
-for(let i = 0; i < 40; i++){
-
-    const p =
-        document.createElement("span");
-
-    const angle =
-        Math.random() *
-        Math.PI *
-        2;
-
-    const radius =
-        35 +
-        Math.random() *
-        55;
-
-    p.style.left =
-        (
-            50 +
-            Math.cos(angle) *
-            radius /
-            1.8
-        ) + "%";
-
-    p.style.top =
-        (
-            50 +
-            Math.sin(angle) *
-            radius /
-            1.8
-        ) + "%";
-
-    neural.appendChild(p);
-
-}
-
-
-/* =========================================================
+/* =====================================================
    OROLOGIO
-========================================================= */
+===================================================== */
 
 function updateClock(){
 
-    const d =
+    const now =
         new Date();
 
-    const h =
+    const hours =
         String(
-            d.getHours()
+            now.getHours()
         ).padStart(2,"0");
 
-    const m =
+    const minutes =
         String(
-            d.getMinutes()
+            now.getMinutes()
         ).padStart(2,"0");
 
-    const s =
-        String(
-            d.getSeconds()
-        ).padStart(2,"0");
-
-    clock.innerHTML =
-        h + ":" +
-        m + ":" +
-        s +
-        "<br>LOCAL SYSTEM";
-
+    document
+        .getElementById("clock")
+        .textContent =
+        hours + ":" + minutes;
 }
+
 
 updateClock();
 
@@ -936,58 +922,90 @@ setInterval(
 );
 
 
-/* =========================================================
+
+/* =====================================================
+   ELEMENTI
+===================================================== */
+
+const mic =
+    document.getElementById("mic");
+
+const status =
+    document.getElementById("status");
+
+const voiceText =
+    document.getElementById("voice");
+
+
+
+/* =====================================================
    STATO JARVIS
-========================================================= */
+===================================================== */
 
-function setState(text){
+function setState(state){
 
-    statusElement.textContent =
-        text;
+    status.className =
+        "status";
 
-    voiceElement.textContent =
-        text;
+    mic.classList.remove(
+        "listening"
+    );
 
-    if(
 
-        text === "LISTENING" ||
-        text === "HEARING" ||
-        text === "THINKING" ||
-        text === "SPEAKING"
+    if(state === "LISTENING"){
 
-    ){
+        status.textContent =
+            "LISTENING";
+
+        status.classList.add(
+            "listening"
+        );
 
         mic.classList.add(
-            "active"
+            "listening"
         );
 
-    }else{
+    }
 
-        mic.classList.remove(
-            "active"
+
+    else if(state === "THINKING"){
+
+        status.textContent =
+            "THINKING";
+
+        status.classList.add(
+            "thinking"
         );
+
+    }
+
+
+    else if(state === "SPEAKING"){
+
+        status.textContent =
+            "SPEAKING";
+
+        status.classList.add(
+            "speaking"
+        );
+
+    }
+
+
+    else{
+
+        status.textContent =
+            "SYSTEM ONLINE";
 
     }
 
 }
 
 
-/* =========================================================
-   RICONOSCIMENTO VOCALE
-========================================================= */
 
-const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
-
-let recognition = null;
-
-let listening = false;
-
-
-/* =========================================================
-   SELEZIONE VOCE ITALIANA
-========================================================= */
+/* =====================================================
+   VOCE
+===================================================== */
 
 let italianVoice = null;
 
@@ -997,29 +1015,34 @@ function loadVoices(){
     const voices =
         speechSynthesis.getVoices();
 
+
     if(!voices.length){
+
         return;
+
     }
 
 
     const italianVoices =
         voices.filter(
+
             voice =>
+
                 voice.lang &&
+
                 voice.lang
                     .toLowerCase()
                     .startsWith("it")
+
         );
 
 
     if(!italianVoices.length){
+
         return;
+
     }
 
-
-    /*
-     * Proviamo a trovare una voce maschile.
-     */
 
     const maleKeywords = [
 
@@ -1041,6 +1064,7 @@ function loadVoices(){
 
     const maleVoice =
         italianVoices.find(
+
             voice => {
 
                 const name =
@@ -1048,11 +1072,16 @@ function loadVoices(){
                         .toLowerCase();
 
                 return maleKeywords.some(
+
                     keyword =>
-                        name.includes(keyword)
+                        name.includes(
+                            keyword
+                        )
+
                 );
 
             }
+
         );
 
 
@@ -1061,13 +1090,21 @@ function loadVoices(){
         italianVoice =
             maleVoice;
 
-    }else{
+    }
+
+    else{
 
         italianVoice =
+
             italianVoices.find(
+
                 voice =>
                     voice.localService
-            ) ||
+
+            )
+
+            ||
+
             italianVoices[0];
 
     }
@@ -1084,9 +1121,7 @@ function loadVoices(){
 loadVoices();
 
 
-if(
-    "speechSynthesis" in window
-){
+if("speechSynthesis" in window){
 
     speechSynthesis.onvoiceschanged =
         loadVoices;
@@ -1094,237 +1129,16 @@ if(
 }
 
 
-/* =========================================================
-   RICONOSCIMENTO SALUTO
-========================================================= */
 
-function isJarvisGreeting(testo){
-
-    const t =
-        testo
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(
-                /[\u0300-\u036f]/g,
-                ""
-            )
-            .replace(
-                /[^a-z0-9\s]/g,
-                " "
-            )
-            .replace(
-                /\s+/g,
-                " "
-            )
-            .trim();
-
-
-    console.log(
-        "TESTO NORMALIZZATO:",
-        t
-    );
-
-
-    /*
-     * Basta che venga pronunciato JARVIS.
-     */
-
-    if(
-        t.includes("jarvis")
-    ){
-
-        return true;
-
-    }
-
-
-    /*
-     * Alcuni riconoscimenti vocali
-     * possono storpiare leggermente il nome.
-     */
-
-    if(
-        t.includes("jarvis") ||
-        t.includes("jarvis") ||
-        t.includes("jarvis")
-    ){
-
-        return true;
-
-    }
-
-
-    return false;
-
-}
-
-
-/* =========================================================
-   FRASE THINKING
-========================================================= */
-
-function getThinkingPhrase(testo){
-
-    const t =
-        testo
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(
-                /[\u0300-\u036f]/g,
-                ""
-            )
-            .trim();
-
-
-    console.log(
-        "TESTO ANALIZZATO:",
-        t
-    );
-
-
-    /* =====================================================
-       JARVIS
-    ===================================================== */
-
-    if(
-        isJarvisGreeting(testo)
-    ){
-
-        return "Salve, signore. Come posso esserle utile?";
-
-    }
-
-
-    /* =====================================================
-       TEMPERATURA / METEO
-    ===================================================== */
-
-    if(
-
-        t.includes("temperatura") ||
-        t.includes("gradi") ||
-        t.includes("meteo") ||
-        t.includes("tempo fa") ||
-        t.includes("che tempo") ||
-        t.includes("quanto fa caldo") ||
-        t.includes("quanto fa freddo")
-
-    ){
-
-        return "Sto verificando la temperatura attuale, signore.";
-
-    }
-
-
-    /* =====================================================
-       ORA
-    ===================================================== */
-
-    if(
-
-        t.includes("che ore") ||
-        t.includes("che ora") ||
-        t.includes("orario")
-
-    ){
-
-        return "Sto verificando l'ora attuale, signore.";
-
-    }
-
-
-    /* =====================================================
-       CALENDARIO
-    ===================================================== */
-
-    if(
-
-        t.includes("calendario") ||
-        t.includes("appuntamento") ||
-        t.includes("agenda")
-
-    ){
-
-        return "Sto controllando la sua agenda, signore.";
-
-    }
-
-
-    /* =====================================================
-       MEMORIA
-    ===================================================== */
-
-    if(
-
-        t.includes("ricorda") ||
-        t.includes("ricordami") ||
-        t.includes("memoria") ||
-        t.includes("ricordi")
-
-    ){
-
-        return "Sto verificando la memoria, signore.";
-
-    }
-
-
-    /* =====================================================
-       RICERCA
-    ===================================================== */
-
-    if(
-
-        t.includes("cerca") ||
-        t.includes("trova") ||
-        t.includes("informazioni") ||
-        t.includes("chi e") ||
-        t.includes("cos e") ||
-        t.includes("cosa e")
-
-    ){
-
-        return "Sto cercando le informazioni richieste, signore.";
-
-    }
-
-
-    /* =====================================================
-       GENERALE
-    ===================================================== */
-
-    return "Sto elaborando la richiesta, signore.";
-
-}
-
-
-/* =========================================================
-   VOCE JARVIS
-========================================================= */
+/* =====================================================
+   PARLARE
+===================================================== */
 
 function speak(text){
-
-    console.log(
-        "JARVIS SPEAK:",
-        text
-    );
-
-
-    setState(
-        "SPEAKING"
-    );
-
 
     if(
         !("speechSynthesis" in window)
     ){
-
-        setState(
-            "VOICE ERROR"
-        );
-
-        alert(
-            "La sintesi vocale non è disponibile."
-        );
 
         return;
 
@@ -1332,6 +1146,15 @@ function speak(text){
 
 
     speechSynthesis.cancel();
+
+
+    setState(
+        "SPEAKING"
+    );
+
+
+    voiceText.textContent =
+        text;
 
 
     const utterance =
@@ -1353,8 +1176,10 @@ function speak(text){
 
 
     /*
-     * Voce più lenta e meno acuta.
-     */
+       Voce più lenta e profonda,
+       senza cercare di imitare
+       una voce specifica.
+    */
 
     utterance.rate =
         0.88;
@@ -1366,36 +1191,21 @@ function speak(text){
         1;
 
 
-    utterance.onstart =
-        function(){
-
-            setState(
-                "SPEAKING"
-            );
-
-        };
-
-
     utterance.onend =
         function(){
 
             setState(
-                "SYSTEM READY"
+                "IDLE"
             );
 
         };
 
 
     utterance.onerror =
-        function(event){
-
-            console.log(
-                "ERRORE VOCE:",
-                event
-            );
+        function(){
 
             setState(
-                "VOICE ERROR"
+                "IDLE"
             );
 
         };
@@ -1408,38 +1218,21 @@ function speak(text){
 }
 
 
-/* =========================================================
-   ASCOLTO
-========================================================= */
 
-function startListening(){
+/* =====================================================
+   SPEECH RECOGNITION
+===================================================== */
 
-    console.log(
-        "PULSANTE JARVIS PREMUTO"
-    );
+const SpeechRecognition =
 
-
-    if(listening){
-
-        return;
-
-    }
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
 
 
-    if(!SpeechRecognition){
+let recognition = null;
 
-        setState(
-            "VOICE ERROR"
-        );
 
-        alert(
-            "Il browser non supporta il riconoscimento vocale."
-        );
-
-        return;
-
-    }
-
+if(SpeechRecognition){
 
     recognition =
         new SpeechRecognition();
@@ -1448,67 +1241,49 @@ function startListening(){
     recognition.lang =
         "it-IT";
 
+
     recognition.continuous =
         false;
+
 
     recognition.interimResults =
         false;
 
+
     recognition.maxAlternatives =
-        3;
+        1;
 
 
-    /* =====================================================
-       START
-    ===================================================== */
+
+    /* =================================================
+       INIZIO ASCOLTO
+    ================================================= */
 
     recognition.onstart =
         function(){
 
-            listening =
-                true;
+            console.log(
+                "MICROFONO ATTIVO"
+            );
 
             setState(
                 "LISTENING"
             );
 
-        };
-
-
-    /* =====================================================
-       AUDIO
-    ===================================================== */
-
-    recognition.onaudiostart =
-        function(){
-
-            setState(
-                "HEARING"
-            );
+            voiceText.textContent =
+                "Sto ascoltando...";
 
         };
 
 
-    /* =====================================================
-       PARLATO
-    ===================================================== */
 
-    recognition.onspeechstart =
-        function(){
-
-            setState(
-                "LISTENING"
-            );
-
-        };
-
-
-    /* =====================================================
+    /* =================================================
        RISULTATO
-    ===================================================== */
+    ================================================= */
 
     recognition.onresult =
         function(event){
+
 
             console.log(
                 "RISULTATO RICEVUTO"
@@ -1516,73 +1291,15 @@ function startListening(){
 
 
             let testo =
-                "";
-
-
-            /*
-             * Controlliamo tutte le alternative
-             * disponibili.
-             */
-
-            for(
-                let i = 0;
-                i < event.results[0].length;
-                i++
-            ){
-
-                const alternativa =
-                    event.results[0][i].transcript;
-
-                console.log(
-                    "ALTERNATIVA:",
-                    alternativa
-                );
-
-
-                /*
-                 * Se una delle alternative contiene
-                 * JARVIS, utilizziamo quella.
-                 */
-
-                if(
-                    alternativa
-                        .toLowerCase()
-                        .includes("jarvis")
-                ){
-
-                    testo =
-                        alternativa;
-
-                    break;
-
-                }
-
-
-                /*
-                 * Altrimenti utilizziamo
-                 * la prima alternativa.
-                 */
-
-                if(
-                    i === 0
-                ){
-
-                    testo =
-                        alternativa;
-
-                }
-
-            }
+                event
+                    .results[0][0]
+                    .transcript;
 
 
             console.log(
-                "TESTO FINALE:",
+                "TESTO RICONOSCIUTO:",
                 testo
             );
-
-
-            listening =
-                false;
 
 
             setState(
@@ -1590,131 +1307,384 @@ function startListening(){
             );
 
 
-            const response =
-                getThinkingPhrase(
-                    testo
-                );
+            /*
+               Mostriamo ciò che JARVIS
+               ha effettivamente capito.
+            */
+
+            voiceText.textContent =
+                "Hai detto: " +
+                testo;
+
+
+
+            /* =========================================
+               NORMALIZZAZIONE
+            ========================================= */
+
+            const t =
+                testo
+
+                    .toLowerCase()
+
+                    .normalize("NFD")
+
+                    .replace(
+                        /[\u0300-\u036f]/g,
+                        ""
+                    )
+
+                    .trim();
 
 
             console.log(
-                "RISPOSTA:",
-                response
+                "TESTO NORMALIZZATO:",
+                t
             );
 
 
+
+            /* =========================================
+               SALUTO
+            ========================================= */
+
+            if(
+
+                t.includes("ciao") ||
+
+                t.includes("salve") ||
+
+                t.includes("buongiorno") ||
+
+                t.includes("buonasera") ||
+
+                t.includes("ehi") ||
+
+                t.includes("hey") ||
+
+                t.includes("jarvis")
+
+            ){
+
+                console.log(
+                    "SALUTO JARVIS RICONOSCIUTO"
+                );
+
+
+                setTimeout(
+
+                    function(){
+
+                        speak(
+                            "Salve, signore. Come posso esserle utile?"
+                        );
+
+                    },
+
+                    500
+
+                );
+
+
+                return;
+
+            }
+
+
+
+            /* =========================================
+               TEMPERATURA / METEO
+            ========================================= */
+
+            if(
+
+                t.includes("temperatura") ||
+
+                t.includes("gradi") ||
+
+                t.includes("meteo") ||
+
+                t.includes("che tempo") ||
+
+                t.includes("quanto fa caldo") ||
+
+                t.includes("quanto fa freddo")
+
+            ){
+
+                setTimeout(
+
+                    function(){
+
+                        speak(
+                            "Sto verificando la temperatura attuale, signore."
+                        );
+
+                    },
+
+                    500
+
+                );
+
+
+                return;
+
+            }
+
+
+
+            /* =========================================
+               ORA
+            ========================================= */
+
+            if(
+
+                t.includes("che ora") ||
+
+                t.includes("che ore") ||
+
+                t.includes("orario")
+
+            ){
+
+                setTimeout(
+
+                    function(){
+
+                        speak(
+                            "Sto verificando l'ora attuale, signore."
+                        );
+
+                    },
+
+                    500
+
+                );
+
+
+                return;
+
+            }
+
+
+
+            /* =========================================
+               CALENDARIO
+            ========================================= */
+
+            if(
+
+                t.includes("calendario") ||
+
+                t.includes("appuntamento") ||
+
+                t.includes("agenda")
+
+            ){
+
+                setTimeout(
+
+                    function(){
+
+                        speak(
+                            "Sto controllando la sua agenda, signore."
+                        );
+
+                    },
+
+                    500
+
+                );
+
+
+                return;
+
+            }
+
+
+
+            /* =========================================
+               MEMORIA
+            ========================================= */
+
+            if(
+
+                t.includes("ricorda") ||
+
+                t.includes("ricordami") ||
+
+                t.includes("memoria") ||
+
+                t.includes("ricordi")
+
+            ){
+
+                setTimeout(
+
+                    function(){
+
+                        speak(
+                            "Sto verificando la memoria, signore."
+                        );
+
+                    },
+
+                    500
+
+                );
+
+
+                return;
+
+            }
+
+
+
+            /* =========================================
+               RICERCA
+            ========================================= */
+
+            if(
+
+                t.includes("cerca") ||
+
+                t.includes("trova") ||
+
+                t.includes("informazioni")
+
+            ){
+
+                setTimeout(
+
+                    function(){
+
+                        speak(
+                            "Sto cercando le informazioni richieste, signore."
+                        );
+
+                    },
+
+                    500
+
+                );
+
+
+                return;
+
+            }
+
+
+
+            /* =========================================
+               RICHIESTA GENERICA
+            ========================================= */
+
             setTimeout(
+
                 function(){
 
                     speak(
-                        response
+                        "Sto elaborando la richiesta, signore."
                     );
 
                 },
+
                 500
+
             );
 
         };
 
 
-    /* =====================================================
-       NESSUN RISULTATO
-    ===================================================== */
 
-    recognition.onnomatch =
-        function(){
-
-            listening =
-                false;
-
-            setState(
-                "NO COMMAND"
-            );
-
-
-            setTimeout(
-                function(){
-
-                    setState(
-                        "SYSTEM READY"
-                    );
-
-                },
-                2000
-            );
-
-        };
-
-
-    /* =====================================================
+    /* =================================================
        ERRORE
-    ===================================================== */
+    ================================================= */
 
     recognition.onerror =
         function(event){
 
             console.log(
-                "ERRORE RICONOSCIMENTO:",
+                "ERRORE MICROFONO:",
                 event.error
             );
 
 
-            listening =
-                false;
-
-
             setState(
-                "ERROR " +
-                event.error.toUpperCase()
+                "IDLE"
             );
-
-
-            setTimeout(
-                function(){
-
-                    setState(
-                        "SYSTEM READY"
-                    );
-
-                },
-                3000
-            );
-
-        };
-
-
-    /* =====================================================
-       FINE
-    ===================================================== */
-
-    recognition.onend =
-        function(){
-
-            listening =
-                false;
 
 
             if(
-
-                statusElement.textContent ===
-                "LISTENING" ||
-
-                statusElement.textContent ===
-                "HEARING"
-
+                event.error ===
+                "not-allowed"
             ){
 
-                setState(
-                    "SYSTEM READY"
-                );
+                voiceText.textContent =
+                    "Permesso microfono negato.";
+
+            }
+
+            else if(
+                event.error ===
+                "no-speech"
+            ){
+
+                voiceText.textContent =
+                    "Non ho sentito nulla.";
+
+            }
+
+            else{
+
+                voiceText.textContent =
+                    "Errore di ascolto.";
 
             }
 
         };
 
 
-    /* =====================================================
-       AVVIO
-    ===================================================== */
+
+    /* =================================================
+       FINE ASCOLTO
+    ================================================= */
+
+    recognition.onend =
+        function(){
+
+            console.log(
+                "MICROFONO TERMINATO"
+            );
+
+
+            mic.classList.remove(
+                "listening"
+            );
+
+        };
+
+
+
+}
+
+
+
+/* =====================================================
+   AVVIO MICROFONO
+===================================================== */
+
+function startListening(){
+
+    if(!recognition){
+
+        voiceText.textContent =
+            "Il browser non supporta il riconoscimento vocale.";
+
+        return;
+
+    }
+
 
     try{
 
@@ -1725,17 +1695,7 @@ function startListening(){
     catch(error){
 
         console.log(
-            "ERRORE START:",
-            error
-        );
-
-
-        listening =
-            false;
-
-
-        setState(
-            "START ERROR"
+            "MIC GIA ATTIVO"
         );
 
     }
@@ -1743,27 +1703,45 @@ function startListening(){
 }
 
 
-/* =========================================================
-   PULSANTE
-========================================================= */
+
+/* =====================================================
+   CLICK MICROFONO
+===================================================== */
 
 mic.addEventListener(
+
     "click",
-    startListening
+
+    function(){
+
+        startListening();
+
+    }
+
 );
 
 
-/* =========================================================
-   STATO INIZIALE
-========================================================= */
+
+/* =====================================================
+   MESSAGGIO INIZIALE
+===================================================== */
 
 setState(
-    "SYSTEM READY"
+    "IDLE"
+);
+
+
+console.log(
+    "JARVIS ONLINE"
+);
+
+console.log(
+    "SpeechRecognition:",
+    !!SpeechRecognition
 );
 
 </script>
 
 
 </body>
-
 </html>
