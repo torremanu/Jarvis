@@ -7,20 +7,32 @@
 <title>JARVIS AI</title>
 
 <style>
-*{box-sizing:border-box}
-html,body{
- margin:0;width:100%;height:100%;overflow:hidden;
- background:#02070d;color:#00eaff;
- font-family:Arial,sans-serif
+*{
+ box-sizing:border-box;
 }
+
+html,body{
+ margin:0;
+ width:100%;
+ height:100%;
+ overflow:hidden;
+ background:#02070d;
+ color:#00eaff;
+ font-family:Arial,sans-serif;
+}
+
 body{
  background:
  radial-gradient(circle at 50% 45%,rgba(0,234,255,.12),transparent 30%),
  radial-gradient(circle at 50% 100%,rgba(0,100,255,.12),transparent 45%),
  #02070d;
 }
+
 body:before{
- content:"";position:fixed;inset:0;pointer-events:none;
+ content:"";
+ position:fixed;
+ inset:0;
+ pointer-events:none;
  background:
  linear-gradient(rgba(0,234,255,.07) 1px,transparent 1px),
  linear-gradient(90deg,rgba(0,234,255,.07) 1px,transparent 1px);
@@ -29,27 +41,35 @@ body:before{
 }
 
 .app{
- width:100%;height:100%;position:relative;
- display:flex;justify-content:center;align-items:center;
+ width:100%;
+ height:100%;
+ position:relative;
+ display:flex;
+ justify-content:center;
+ align-items:center;
 }
 
 .header{
- position:absolute;top:22px;left:20px;right:20px;
- display:flex;justify-content:space-between;
- z-index:10
+ position:absolute;
+ top:22px;
+ left:20px;
+ right:20px;
+ display:flex;
+ justify-content:space-between;
+ z-index:10;
 }
 
 .logo{
  font-size:28px;
  letter-spacing:8px;
- text-shadow:0 0 18px #00eaff
+ text-shadow:0 0 18px #00eaff;
 }
 
 .subtitle{
  font-size:8px;
  letter-spacing:3px;
  opacity:.55;
- margin-top:5px
+ margin-top:5px;
 }
 
 .clock{
@@ -57,7 +77,7 @@ body:before{
  font-size:10px;
  letter-spacing:2px;
  line-height:1.7;
- opacity:.7
+ opacity:.7;
 }
 
 .status{
@@ -68,28 +88,31 @@ body:before{
  font-size:11px;
  letter-spacing:4px;
  z-index:10;
- text-shadow:0 0 12px #00eaff
+ text-shadow:0 0 12px #00eaff;
 }
 
 .dot{
  display:inline-block;
- width:7px;height:7px;
+ width:7px;
+ height:7px;
  border-radius:50%;
  background:#00eaff;
  box-shadow:0 0 14px #00eaff;
- margin-right:8px
+ margin-right:8px;
 }
 
 /* CORE */
 
 .core-system{
  position:absolute;
- width:330px;height:330px;
- left:50%;top:49%;
+ width:330px;
+ height:330px;
+ left:50%;
+ top:49%;
  transform:translate(-50%,-50%);
  display:flex;
  justify-content:center;
- align-items:center
+ align-items:center;
 }
 
 .ring{
@@ -98,43 +121,50 @@ body:before{
 }
 
 .r1{
- width:315px;height:315px;
+ width:315px;
+ height:315px;
  border:1px dashed rgba(0,234,255,.35);
- animation:rotate 24s linear infinite
+ animation:rotate 24s linear infinite;
 }
 
 .r2{
- width:275px;height:275px;
+ width:275px;
+ height:275px;
  border:1px solid rgba(0,234,255,.25);
  border-top-color:#00eaff;
  border-bottom-color:transparent;
- animation:reverseRotate 12s linear infinite
+ animation:reverseRotate 12s linear infinite;
 }
 
 .r3{
- width:230px;height:230px;
+ width:230px;
+ height:230px;
  border:2px solid rgba(0,120,255,.45);
  border-left-color:transparent;
  border-right-color:#00eaff;
- animation:rotate 8s linear infinite
+ animation:rotate 8s linear infinite;
 }
 
 .r4{
- width:185px;height:185px;
+ width:185px;
+ height:185px;
  border:1px solid rgba(0,234,255,.65);
  box-shadow:
  0 0 25px rgba(0,234,255,.15),
- inset 0 0 30px rgba(0,234,255,.08)
+ inset 0 0 30px rgba(0,234,255,.08);
 }
 
 .r5{
- width:140px;height:140px;
+ width:140px;
+ height:140px;
  border:1px solid rgba(180,250,255,.55);
- animation:pulse 2.5s ease-in-out infinite
+ animation:pulse 2.5s ease-in-out infinite;
 }
 
 .core{
- width:65px;height:65px;
+ position:relative;
+ width:65px;
+ height:65px;
  border-radius:50%;
  background:
  radial-gradient(circle,
@@ -146,7 +176,7 @@ body:before{
  0 0 25px #00eaff,
  0 0 70px rgba(0,234,255,.45);
  animation:corePulse 2s ease-in-out infinite;
- z-index:5
+ z-index:5;
 }
 
 .core:before,
@@ -154,54 +184,65 @@ body:before{
  content:"";
  position:absolute;
  border:1px solid #b9fbff;
- border-radius:50%
+ border-radius:50%;
+ left:50%;
+ top:50%;
+ transform:translate(-50%,-50%);
 }
 
 .core:before{
- width:38px;height:38px;
- margin:13px
+ width:38px;
+ height:38px;
 }
 
 .core:after{
- width:20px;height:20px;
- margin:22px;
- border-color:white
+ width:20px;
+ height:20px;
+ border-color:white;
 }
 
 .scan{
  position:absolute;
- width:290px;height:2px;
+ width:290px;
+ height:2px;
  background:linear-gradient(
- 90deg,transparent,#00eaff,transparent);
+ 90deg,
+ transparent,
+ #00eaff,
+ transparent
+ );
  box-shadow:0 0 12px #00eaff;
- animation:scan 4s ease-in-out infinite
+ animation:scan 4s ease-in-out infinite;
 }
 
 .neural{
  position:absolute;
- width:180px;height:180px;
+ width:180px;
+ height:180px;
  border-radius:50%;
- animation:neural 5s ease-in-out infinite
+ animation:neural 5s ease-in-out infinite;
 }
 
 .neural span{
  position:absolute;
- width:3px;height:3px;
+ width:3px;
+ height:3px;
  border-radius:50%;
  background:#b9fbff;
- box-shadow:0 0 8px #00eaff
+ box-shadow:0 0 8px #00eaff;
 }
 
 /* INFO */
 
 .panels{
  position:absolute;
- left:18px;right:18px;
+ left:18px;
+ right:18px;
  bottom:105px;
  display:grid;
  grid-template-columns:repeat(2,1fr);
  gap:8px;
- z-index:10
+ z-index:10;
 }
 
 .panel{
@@ -209,19 +250,19 @@ body:before{
  padding:8px 10px;
  border:1px solid rgba(0,234,255,.25);
  background:rgba(2,18,28,.7);
- box-shadow:inset 0 0 16px rgba(0,234,255,.04)
+ box-shadow:inset 0 0 16px rgba(0,234,255,.04);
 }
 
 .label{
  font-size:7px;
  letter-spacing:2px;
- opacity:.5
+ opacity:.5;
 }
 
 .value{
  margin-top:6px;
  font-size:11px;
- letter-spacing:1px
+ letter-spacing:1px;
 }
 
 /* BUTTON */
@@ -230,30 +271,38 @@ body:before{
  position:absolute;
  bottom:28px;
  text-align:center;
- z-index:20
+ z-index:20;
 }
 
 .mic{
- width:70px;height:70px;
+ width:70px;
+ height:70px;
  border-radius:50%;
  border:1px solid #00eaff;
  background:rgba(0,234,255,.04);
  color:#00eaff;
  font-size:24px;
- box-shadow:0 0 25px rgba(0,234,255,.2)
+ box-shadow:0 0 25px rgba(0,234,255,.2);
+ cursor:pointer;
+ -webkit-tap-highlight-color:transparent;
+ touch-action:manipulation;
+}
+
+.mic:active{
+ transform:scale(.95);
 }
 
 .mic.active{
  background:rgba(0,234,255,.18);
  box-shadow:0 0 45px rgba(0,234,255,.7);
- transform:scale(1.08)
+ transform:scale(1.08);
 }
 
 .hint{
  font-size:7px;
  letter-spacing:2px;
  opacity:.35;
- margin-top:6px
+ margin-top:6px;
 }
 
 .footer{
@@ -263,8 +312,10 @@ body:before{
  text-align:center;
  font-size:6px;
  letter-spacing:2px;
- opacity:.25
+ opacity:.25;
 }
+
+/* ANIMAZIONI */
 
 @keyframes rotate{
  from{transform:rotate(0)}
@@ -277,29 +328,51 @@ body:before{
 }
 
 @keyframes pulse{
- 50%{transform:scale(1.06);opacity:.7}
+ 50%{
+  transform:scale(1.06);
+  opacity:.7;
+ }
 }
 
 @keyframes corePulse{
- 50%{transform:scale(1.13);filter:brightness(1.4)}
+ 50%{
+  transform:scale(1.13);
+  filter:brightness(1.4);
+ }
 }
 
 @keyframes neural{
- 50%{transform:scale(1.05) rotate(5deg)}
+ 50%{
+  transform:scale(1.05) rotate(5deg);
+ }
 }
 
 @keyframes scan{
- 0%,100%{transform:translateY(-100px);opacity:0}
- 30%,70%{opacity:.8}
- 50%{transform:translateY(100px)}
+ 0%,100%{
+  transform:translateY(-100px);
+  opacity:0;
+ }
+ 30%,70%{
+  opacity:.8;
+ }
+ 50%{
+  transform:translateY(100px);
+ }
 }
 
 @media(max-height:650px){
+
  .core-system{
-  transform:translate(-50%,-50%) scale(.8)
+  transform:translate(-50%,-50%) scale(.8);
  }
- .panels{bottom:82px}
- .controls{bottom:8px}
+
+ .panels{
+  bottom:82px;
+ }
+
+ .controls{
+  bottom:8px;
+ }
 }
 </style>
 </head>
@@ -308,85 +381,124 @@ body:before{
 
 <div class="app">
 
-<div class="header">
- <div>
-  <div class="logo">JARVIS</div>
-  <div class="subtitle">PERSONAL AI // NEURAL INTERFACE</div>
+ <!-- HEADER -->
+
+ <div class="header">
+
+  <div>
+   <div class="logo">JARVIS</div>
+   <div class="subtitle">
+    PERSONAL AI // NEURAL INTERFACE
+   </div>
+  </div>
+
+  <div class="clock" id="clock">
+   --:--:--<br>
+   LOCAL SYSTEM
+  </div>
+
  </div>
 
- <div class="clock" id="clock">
-  --:--:--<br>
-  LOCAL SYSTEM
- </div>
-</div>
+ <!-- STATUS -->
 
-<div class="status">
- <span class="dot"></span>
- <span id="status">SYSTEM READY</span>
-</div>
-
-<div class="core-system">
-
- <div class="ring r1"></div>
- <div class="ring r2"></div>
- <div class="ring r3"></div>
- <div class="ring r4"></div>
- <div class="ring r5"></div>
-
- <div class="neural" id="neural"></div>
-
- <div class="scan"></div>
-
- <div class="core"></div>
-
-</div>
-
-<div class="panels">
-
- <div class="panel">
-  <div class="label">CORE</div>
-  <div class="value">ONLINE</div>
+ <div class="status">
+  <span class="dot"></span>
+  <span id="status">SYSTEM READY</span>
  </div>
 
- <div class="panel">
-  <div class="label">MEMORY</div>
-  <div class="value">LOCAL</div>
+ <!-- CORE -->
+
+ <div class="core-system">
+
+  <div class="ring r1"></div>
+  <div class="ring r2"></div>
+  <div class="ring r3"></div>
+  <div class="ring r4"></div>
+  <div class="ring r5"></div>
+
+  <div class="neural" id="neural"></div>
+
+  <div class="scan"></div>
+
+  <div class="core"></div>
+
  </div>
 
- <div class="panel">
-  <div class="label">NETWORK</div>
-  <div class="value">STANDBY</div>
+ <!-- PANELS -->
+
+ <div class="panels">
+
+  <div class="panel">
+   <div class="label">CORE</div>
+   <div class="value">ONLINE</div>
+  </div>
+
+  <div class="panel">
+   <div class="label">MEMORY</div>
+   <div class="value">LOCAL</div>
+  </div>
+
+  <div class="panel">
+   <div class="label">NETWORK</div>
+   <div class="value">STANDBY</div>
+  </div>
+
+  <div class="panel">
+   <div class="label">VOICE</div>
+   <div class="value" id="voice">READY</div>
+  </div>
+
  </div>
 
- <div class="panel">
-  <div class="label">VOICE</div>
-  <div class="value" id="voice">READY</div>
+ <!-- MICROFONO -->
+
+ <div class="controls">
+
+  <button
+   class="mic"
+   id="mic"
+   type="button"
+   aria-label="Attiva JARVIS">
+   ◉
+  </button>
+
+  <div class="hint">
+   TAP TO ACTIVATE
+  </div>
+
  </div>
 
-</div>
-
-<div class="controls">
-
- <button class="mic" id="mic">◉</button>
-
- <div class="hint">
-  TAP TO ACTIVATE
+ <div class="footer">
+  JARVIS AI // LOCAL MODE
  </div>
-
-</div>
-
-<div class="footer">
- JARVIS AI // LOCAL MODE
-</div>
 
 </div>
 
 <script>
 
-const status=document.getElementById("status");
-const voice=document.getElementById("voice");
-const mic=document.getElementById("mic");
-const neural=document.getElementById("neural");
+/* =========================
+   ELEMENTI
+========================= */
+
+const statusElement =
+ document.getElementById("status");
+
+const voiceElement =
+ document.getElementById("voice");
+
+const mic =
+ document.getElementById("mic");
+
+const neural =
+ document.getElementById("neural");
+
+const clock =
+ document.getElementById("clock");
+
+
+/* =========================
+   PARTICELLE NEURALI
+========================= */
 
 for(let i=0;i<40;i++){
 
@@ -395,146 +507,338 @@ for(let i=0;i<40;i++){
  const angle=Math.random()*Math.PI*2;
  const radius=35+Math.random()*55;
 
- p.style.left=(50+Math.cos(angle)*radius/1.8)+"%";
- p.style.top=(50+Math.sin(angle)*radius/1.8)+"%";
+ p.style.left =
+  (50+Math.cos(angle)*radius/1.8)+"%";
+
+ p.style.top =
+  (50+Math.sin(angle)*radius/1.8)+"%";
 
  neural.appendChild(p);
 }
+
+
+/* =========================
+   OROLOGIO
+========================= */
 
 function updateClock(){
 
  const d=new Date();
 
- const h=String(d.getHours()).padStart(2,"0");
- const m=String(d.getMinutes()).padStart(2,"0");
- const s=String(d.getSeconds()).padStart(2,"0");
+ const h=
+  String(d.getHours()).padStart(2,"0");
 
- document.getElementById("clock").innerHTML=
- h+":"+m+":"+s+"<br>LOCAL SYSTEM";
+ const m=
+  String(d.getMinutes()).padStart(2,"0");
+
+ const s=
+  String(d.getSeconds()).padStart(2,"0");
+
+ clock.innerHTML=
+  h+":"+m+":"+s+
+  "<br>LOCAL SYSTEM";
 }
 
-setInterval(updateClock,1000);
 updateClock();
 
-let recognition = null;
-let listening = false;
+setInterval(updateClock,1000);
+
+
+/* =========================
+   STATO JARVIS
+========================= */
+
+function setState(text, active){
+
+ statusElement.textContent=text;
+
+ if(active){
+
+  mic.classList.add("active");
+
+ }else{
+
+  mic.classList.remove("active");
+
+ }
+
+ voiceElement.textContent=text;
+}
+
+
+/* =========================
+   RICONOSCIMENTO VOCALE
+========================= */
+
+let recognition=null;
+let listening=false;
 
 const SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
+ window.SpeechRecognition ||
+ window.webkitSpeechRecognition;
 
-function speak(text) {
 
-  setState("SPEAKING", true);
+/* =========================
+   VOCE DI JARVIS
+========================= */
 
-  if (!("speechSynthesis" in window)) {
-    setState("SYSTEM READY", false);
-    alert("La sintesi vocale non è disponibile.");
-    return;
-  }
+function speak(text){
 
-  speechSynthesis.cancel();
+ setState("SPEAKING",true);
 
-  const voce = new SpeechSynthesisUtterance(text);
+ if(!("speechSynthesis" in window)){
 
-  voce.lang = "it-IT";
-  voce.rate = 0.92;
-  voce.pitch = 0.85;
-  voce.volume = 1;
+  setState("VOICE ERROR",false);
 
-  voce.onend = function() {
-    setState("SYSTEM READY", false);
-  };
+  voiceElement.textContent=
+   "NOT SUPPORTED";
 
-  voce.onerror = function() {
-    setState("SYSTEM READY", false);
-  };
+  return;
+ }
 
-  speechSynthesis.speak(voce);
+ window.speechSynthesis.cancel();
+
+ const utterance =
+  new SpeechSynthesisUtterance(text);
+
+ utterance.lang="it-IT";
+ utterance.rate=0.92;
+ utterance.pitch=0.85;
+ utterance.volume=1;
+
+ utterance.onend=function(){
+
+  setState("SYSTEM READY",false);
+
+  voiceElement.textContent="READY";
+ };
+
+ utterance.onerror=function(){
+
+  setState("VOICE ERROR",false);
+
+  voiceElement.textContent="ERROR";
+
+ };
+
+ window.speechSynthesis.speak(utterance);
 }
 
-function startListening() {
 
-  if (!SpeechRecognition) {
+/* =========================
+   AVVIO MICROFONO
+========================= */
 
-    setState("SYSTEM READY", false);
+function startListening(){
 
-    alert(
-      "Il riconoscimento vocale non è supportato da questo browser."
-    );
+ if(listening){
+  return;
+ }
 
-    return;
-  }
 
-  recognition = new SpeechRecognition();
+ /* Browser non compatibile */
 
-  recognition.lang = "it-IT";
-  recognition.continuous = false;
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
+ if(!SpeechRecognition){
 
-  recognition.onstart = function() {
+  setState("VOICE ERROR",false);
 
-    listening = true;
+  voiceElement.textContent=
+   "NOT SUPPORTED";
 
-    setState("LISTENING", true);
-  };
+  alert(
+   "Il riconoscimento vocale non è supportato da questo browser."
+  );
 
-  recognition.onresult = function(event) {
+  return;
+ }
 
-    const testo =
-      event.results[0][0].transcript;
 
-    setState("THINKING", true);
+ /* Crea riconoscimento */
 
-    setTimeout(function() {
+ recognition =
+  new SpeechRecognition();
 
-      speak(
-        "Ho capito: " + testo
-      );
+ recognition.lang="it-IT";
 
-    }, 600);
-  };
+ recognition.continuous=false;
 
-  recognition.onerror = function(event) {
+ recognition.interimResults=false;
 
-    listening = false;
+ recognition.maxAlternatives=1;
 
-    setState("SYSTEM READY", false);
 
-    alert(
-      "Errore microfono: " + event.error
-    );
-  };
+ /* MICROFONO ATTIVO */
 
-  recognition.onend = function() {
+ recognition.onstart=function(){
 
-    listening = false;
+  listening=true;
 
-    mic.classList.remove("active");
-  };
+  setState("LISTENING",true);
 
-  try {
+  voiceElement.textContent=
+   "LISTENING";
+ };
 
-    recognition.start();
 
-  } catch(error) {
+ /* AUDIO RICEVUTO */
 
-    listening = false;
+ recognition.onaudiostart=function(){
 
-    setState("SYSTEM READY", false);
+  voiceElement.textContent=
+   "AUDIO...";
+ };
 
-    alert(
-      "Impossibile avviare il microfono."
-    );
-  }
+
+ /* PARLATO RILEVATO */
+
+ recognition.onspeechstart=function(){
+
+  voiceElement.textContent=
+   "HEARING...";
+ };
+
+
+ /* RISULTATO */
+
+ recognition.onresult=function(event){
+
+  const testo =
+   event.results[0][0].transcript;
+
+  listening=false;
+
+  setState("THINKING",true);
+
+  voiceElement.textContent=
+   testo;
+
+  /*
+   Per ora JARVIS ripete
+   ciò che hai detto.
+   Successivamente qui
+   collegheremo ChatGPT.
+  */
+
+  setTimeout(function(){
+
+   speak(
+    "Ho capito: " + testo
+   );
+
+  },500);
+ };
+
+
+ /* NESSUN RISULTATO */
+
+ recognition.onnomatch=function(){
+
+  listening=false;
+
+  setState("NO COMMAND",false);
+
+  voiceElement.textContent=
+   "NOT UNDERSTOOD";
+
+  setTimeout(function(){
+
+   setState("SYSTEM READY",false);
+
+   voiceElement.textContent=
+    "READY";
+
+  },2000);
+ };
+
+
+ /* ERRORE */
+
+ recognition.onerror=function(event){
+
+  listening=false;
+
+  mic.classList.remove("active");
+
+  setState("VOICE ERROR",false);
+
+  voiceElement.textContent=
+   event.error.toUpperCase();
+
+  console.log(
+   "JARVIS voice error:",
+   event.error
+  );
+
+  setTimeout(function(){
+
+   setState("SYSTEM READY",false);
+
+   voiceElement.textContent=
+    "READY";
+
+  },3000);
+ };
+
+
+ /* FINE ASCOLTO */
+
+ recognition.onend=function(){
+
+  listening=false;
+
+  mic.classList.remove("active");
+
+ };
+
+
+ /* AVVIO */
+
+ try{
+
+  recognition.start();
+
+ }catch(error){
+
+  listening=false;
+
+  mic.classList.remove("active");
+
+  setState("START ERROR",false);
+
+  voiceElement.textContent=
+   "ERROR";
+
+  console.log(
+   "JARVIS start error:",
+   error
+  );
+ }
 }
 
-mic.onclick = function() {
 
-  if (listening) return;
+/* =========================
+   PULSANTE JARVIS
+========================= */
+
+mic.addEventListener(
+ "click",
+ function(){
 
   startListening();
-};
+
+ }
+);
+
+
+/* =========================
+   AVVIO
+========================= */
+
+setState(
+ "SYSTEM READY",
+ false
+);
+
 </script>
 
 </body>
