@@ -1,845 +1,307 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#02070d">
-<title>JARVIS AI</title>
-
-<style>
-*{
- box-sizing:border-box;
-}
-
-html,body{
- margin:0;
- width:100%;
- height:100%;
- overflow:hidden;
- background:#02070d;
- color:#00eaff;
- font-family:Arial,sans-serif;
-}
-
-body{
- background:
- radial-gradient(circle at 50% 45%,rgba(0,234,255,.12),transparent 30%),
- radial-gradient(circle at 50% 100%,rgba(0,100,255,.12),transparent 45%),
- #02070d;
-}
-
-body:before{
- content:"";
- position:fixed;
- inset:0;
- pointer-events:none;
- background:
- linear-gradient(rgba(0,234,255,.07) 1px,transparent 1px),
- linear-gradient(90deg,rgba(0,234,255,.07) 1px,transparent 1px);
- background-size:32px 32px;
- mask-image:linear-gradient(transparent,#000 15%,#000 85%,transparent);
-}
-
-.app{
- width:100%;
- height:100%;
- position:relative;
- display:flex;
- justify-content:center;
- align-items:center;
-}
-
-.header{
- position:absolute;
- top:22px;
- left:20px;
- right:20px;
- display:flex;
- justify-content:space-between;
- z-index:10;
-}
-
-.logo{
- font-size:28px;
- letter-spacing:8px;
- text-shadow:0 0 18px #00eaff;
-}
-
-.subtitle{
- font-size:8px;
- letter-spacing:3px;
- opacity:.55;
- margin-top:5px;
-}
-
-.clock{
- text-align:right;
- font-size:10px;
- letter-spacing:2px;
- line-height:1.7;
- opacity:.7;
-}
-
-.status{
- position:absolute;
- top:95px;
- width:100%;
- text-align:center;
- font-size:11px;
- letter-spacing:4px;
- z-index:10;
- text-shadow:0 0 12px #00eaff;
-}
-
-.dot{
- display:inline-block;
- width:7px;
- height:7px;
- border-radius:50%;
- background:#00eaff;
- box-shadow:0 0 14px #00eaff;
- margin-right:8px;
-}
-
-/* CORE */
-
-.core-system{
- position:absolute;
- width:330px;
- height:330px;
- left:50%;
- top:49%;
- transform:translate(-50%,-50%);
- display:flex;
- justify-content:center;
- align-items:center;
-}
-
-.ring{
- position:absolute;
- border-radius:50%;
-}
-
-.r1{
- width:315px;
- height:315px;
- border:1px dashed rgba(0,234,255,.35);
- animation:rotate 24s linear infinite;
-}
-
-.r2{
- width:275px;
- height:275px;
- border:1px solid rgba(0,234,255,.25);
- border-top-color:#00eaff;
- border-bottom-color:transparent;
- animation:reverseRotate 12s linear infinite;
-}
-
-.r3{
- width:230px;
- height:230px;
- border:2px solid rgba(0,120,255,.45);
- border-left-color:transparent;
- border-right-color:#00eaff;
- animation:rotate 8s linear infinite;
-}
-
-.r4{
- width:185px;
- height:185px;
- border:1px solid rgba(0,234,255,.65);
- box-shadow:
- 0 0 25px rgba(0,234,255,.15),
- inset 0 0 30px rgba(0,234,255,.08);
-}
-
-.r5{
- width:140px;
- height:140px;
- border:1px solid rgba(180,250,255,.55);
- animation:pulse 2.5s ease-in-out infinite;
-}
-
-.core{
- position:relative;
- width:65px;
- height:65px;
- border-radius:50%;
- background:
- radial-gradient(circle,
- white 0 4%,
- #00eaff 9%,
- rgba(0,234,255,.35) 35%,
- transparent 70%);
- box-shadow:
- 0 0 25px #00eaff,
- 0 0 70px rgba(0,234,255,.45);
- animation:corePulse 2s ease-in-out infinite;
- z-index:5;
-}
-
-.core:before,
-.core:after{
- content:"";
- position:absolute;
- border:1px solid #b9fbff;
- border-radius:50%;
- left:50%;
- top:50%;
- transform:translate(-50%,-50%);
-}
-
-.core:before{
- width:38px;
- height:38px;
-}
-
-.core:after{
- width:20px;
- height:20px;
- border-color:white;
-}
-
-.scan{
- position:absolute;
- width:290px;
- height:2px;
- background:linear-gradient(
- 90deg,
- transparent,
- #00eaff,
- transparent
- );
- box-shadow:0 0 12px #00eaff;
- animation:scan 4s ease-in-out infinite;
-}
-
-.neural{
- position:absolute;
- width:180px;
- height:180px;
- border-radius:50%;
- animation:neural 5s ease-in-out infinite;
-}
-
-.neural span{
- position:absolute;
- width:3px;
- height:3px;
- border-radius:50%;
- background:#b9fbff;
- box-shadow:0 0 8px #00eaff;
-}
-
-/* INFO */
-
-.panels{
- position:absolute;
- left:18px;
- right:18px;
- bottom:105px;
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:8px;
- z-index:10;
-}
-
-.panel{
- height:54px;
- padding:8px 10px;
- border:1px solid rgba(0,234,255,.25);
- background:rgba(2,18,28,.7);
- box-shadow:inset 0 0 16px rgba(0,234,255,.04);
-}
-
-.label{
- font-size:7px;
- letter-spacing:2px;
- opacity:.5;
-}
-
-.value{
- margin-top:6px;
- font-size:11px;
- letter-spacing:1px;
-}
-
-/* BUTTON */
-
-.controls{
- position:absolute;
- bottom:28px;
- text-align:center;
- z-index:20;
-}
-
-.mic{
- width:70px;
- height:70px;
- border-radius:50%;
- border:1px solid #00eaff;
- background:rgba(0,234,255,.04);
- color:#00eaff;
- font-size:24px;
- box-shadow:0 0 25px rgba(0,234,255,.2);
- cursor:pointer;
- -webkit-tap-highlight-color:transparent;
- touch-action:manipulation;
-}
-
-.mic:active{
- transform:scale(.95);
-}
-
-.mic.active{
- background:rgba(0,234,255,.18);
- box-shadow:0 0 45px rgba(0,234,255,.7);
- transform:scale(1.08);
-}
-
-.hint{
- font-size:7px;
- letter-spacing:2px;
- opacity:.35;
- margin-top:6px;
-}
-
-.footer{
- position:absolute;
- bottom:5px;
- width:100%;
- text-align:center;
- font-size:6px;
- letter-spacing:2px;
- opacity:.25;
-}
-
-/* ANIMAZIONI */
-
-@keyframes rotate{
- from{transform:rotate(0)}
- to{transform:rotate(360deg)}
-}
-
-@keyframes reverseRotate{
- from{transform:rotate(0)}
- to{transform:rotate(-360deg)}
-}
-
-@keyframes pulse{
- 50%{
-  transform:scale(1.06);
-  opacity:.7;
- }
-}
-
-@keyframes corePulse{
- 50%{
-  transform:scale(1.13);
-  filter:brightness(1.4);
- }
-}
-
-@keyframes neural{
- 50%{
-  transform:scale(1.05) rotate(5deg);
- }
-}
-
-@keyframes scan{
- 0%,100%{
-  transform:translateY(-100px);
-  opacity:0;
- }
- 30%,70%{
-  opacity:.8;
- }
- 50%{
-  transform:translateY(100px);
- }
-}
-
-@media(max-height:650px){
-
- .core-system{
-  transform:translate(-50%,-50%) scale(.8);
- }
-
- .panels{
-  bottom:82px;
- }
-
- .controls{
-  bottom:8px;
- }
-}
-</style>
-</head>
-
-<body>
-
-<div class="app">
-
- <!-- HEADER -->
-
- <div class="header">
-
-  <div>
-   <div class="logo">JARVIS</div>
-   <div class="subtitle">
-    PERSONAL AI // NEURAL INTERFACE
-   </div>
-  </div>
-
-  <div class="clock" id="clock">
-   --:--:--<br>
-   LOCAL SYSTEM
-  </div>
-
- </div>
-
- <!-- STATUS -->
-
- <div class="status">
-  <span class="dot"></span>
-  <span id="status">SYSTEM READY</span>
- </div>
-
- <!-- CORE -->
-
- <div class="core-system">
-
-  <div class="ring r1"></div>
-  <div class="ring r2"></div>
-  <div class="ring r3"></div>
-  <div class="ring r4"></div>
-  <div class="ring r5"></div>
-
-  <div class="neural" id="neural"></div>
-
-  <div class="scan"></div>
-
-  <div class="core"></div>
-
- </div>
-
- <!-- PANELS -->
-
- <div class="panels">
-
-  <div class="panel">
-   <div class="label">CORE</div>
-   <div class="value">ONLINE</div>
-  </div>
-
-  <div class="panel">
-   <div class="label">MEMORY</div>
-   <div class="value">LOCAL</div>
-  </div>
-
-  <div class="panel">
-   <div class="label">NETWORK</div>
-   <div class="value">STANDBY</div>
-  </div>
-
-  <div class="panel">
-   <div class="label">VOICE</div>
-   <div class="value" id="voice">READY</div>
-  </div>
-
- </div>
-
- <!-- MICROFONO -->
-
- <div class="controls">
-
-  <button
-   class="mic"
-   id="mic"
-   type="button"
-   aria-label="Attiva JARVIS">
-   ◉
-  </button>
-
-  <div class="hint">
-   TAP TO ACTIVATE
-  </div>
-
- </div>
-
- <div class="footer">
-  JARVIS AI // LOCAL MODE
- </div>
-
-</div>
-
 <script>
 
-/* =========================
-   ELEMENTI
-========================= */
-
-const statusElement =
- document.getElementById("status");
-
-const voiceElement =
- document.getElementById("voice");
-
-const mic =
- document.getElementById("mic");
-
-const neural =
- document.getElementById("neural");
-
-const clock =
- document.getElementById("clock");
+const statusElement = document.getElementById("status");
+const voiceElement = document.getElementById("voice");
+const mic = document.getElementById("mic");
+const neural = document.getElementById("neural");
+const clock = document.getElementById("clock");
 
 
-/* =========================
-   PARTICELLE NEURALI
-========================= */
+/* PARTICELLE */
 
-for(let i=0;i<40;i++){
+for(let i = 0; i < 40; i++){
 
- const p=document.createElement("span");
+    const p = document.createElement("span");
 
- const angle=Math.random()*Math.PI*2;
- const radius=35+Math.random()*55;
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 35 + Math.random() * 55;
 
- p.style.left =
-  (50+Math.cos(angle)*radius/1.8)+"%";
+    p.style.left =
+        (50 + Math.cos(angle) * radius / 1.8) + "%";
 
- p.style.top =
-  (50+Math.sin(angle)*radius/1.8)+"%";
+    p.style.top =
+        (50 + Math.sin(angle) * radius / 1.8) + "%";
 
- neural.appendChild(p);
+    neural.appendChild(p);
 }
 
 
-/* =========================
-   OROLOGIO
-========================= */
+/* OROLOGIO */
 
 function updateClock(){
 
- const d=new Date();
+    const d = new Date();
 
- const h=
-  String(d.getHours()).padStart(2,"0");
+    const h = String(d.getHours()).padStart(2,"0");
+    const m = String(d.getMinutes()).padStart(2,"0");
+    const s = String(d.getSeconds()).padStart(2,"0");
 
- const m=
-  String(d.getMinutes()).padStart(2,"0");
-
- const s=
-  String(d.getSeconds()).padStart(2,"0");
-
- clock.innerHTML=
-  h+":"+m+":"+s+
-  "<br>LOCAL SYSTEM";
+    clock.innerHTML =
+        h + ":" + m + ":" + s +
+        "<br>LOCAL SYSTEM";
 }
 
 updateClock();
-
 setInterval(updateClock,1000);
 
 
-/* =========================
-   STATO JARVIS
-========================= */
+/* STATO */
 
-function setState(text, active){
+function setState(text){
 
- statusElement.textContent=text;
+    statusElement.textContent = text;
+    voiceElement.textContent = text;
 
- if(active){
+    if(text === "LISTENING" ||
+       text === "HEARING" ||
+       text === "THINKING" ||
+       text === "SPEAKING"){
 
-  mic.classList.add("active");
+        mic.classList.add("active");
 
- }else{
+    }else{
 
-  mic.classList.remove("active");
-
- }
-
- voiceElement.textContent=text;
+        mic.classList.remove("active");
+    }
 }
 
 
-/* =========================
-   RICONOSCIMENTO VOCALE
-========================= */
-
-let recognition=null;
-let listening=false;
+/* RICONOSCIMENTO */
 
 const SpeechRecognition =
- window.SpeechRecognition ||
- window.webkitSpeechRecognition;
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+let recognition = null;
+let listening = false;
 
 
-/* =========================
-   VOCE DI JARVIS
-========================= */
+/* VOCE */
 
 function speak(text){
 
- setState("SPEAKING",true);
+    console.log("JARVIS SPEAK:", text);
 
- if(!("speechSynthesis" in window)){
+    setState("SPEAKING");
 
-  setState("VOICE ERROR",false);
+    if(!("speechSynthesis" in window)){
 
-  voiceElement.textContent=
-   "NOT SUPPORTED";
+        setState("VOICE ERROR");
 
-  return;
- }
+        alert("La sintesi vocale non è disponibile.");
 
- window.speechSynthesis.cancel();
+        return;
+    }
 
- const utterance =
-  new SpeechSynthesisUtterance(text);
+    speechSynthesis.cancel();
 
- utterance.lang="it-IT";
- utterance.rate=0.92;
- utterance.pitch=0.85;
- utterance.volume=1;
+    const utterance =
+        new SpeechSynthesisUtterance(text);
 
- utterance.onend=function(){
+    utterance.lang = "it-IT";
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+    utterance.volume = 1;
 
-  setState("SYSTEM READY",false);
+    utterance.onstart = function(){
 
-  voiceElement.textContent="READY";
- };
+        console.log("VOCE AVVIATA");
 
- utterance.onerror=function(){
+        setState("SPEAKING");
+    };
 
-  setState("VOICE ERROR",false);
+    utterance.onend = function(){
 
-  voiceElement.textContent="ERROR";
+        console.log("VOCE TERMINATA");
 
- };
+        setState("SYSTEM READY");
+    };
 
- window.speechSynthesis.speak(utterance);
+    utterance.onerror = function(event){
+
+        console.log("ERRORE VOCE:", event);
+
+        setState("VOICE ERROR");
+    };
+
+    speechSynthesis.speak(utterance);
 }
 
 
-/* =========================
-   AVVIO MICROFONO
-========================= */
+/* ASCOLTO */
 
 function startListening(){
 
- if(listening){
-  return;
- }
+    console.log("PULSANTE JARVIS PREMUTO");
 
+    if(listening){
+        return;
+    }
 
- /* Browser non compatibile */
+    if(!SpeechRecognition){
 
- if(!SpeechRecognition){
+        setState("VOICE ERROR");
 
-  setState("VOICE ERROR",false);
+        alert(
+            "Il browser non supporta il riconoscimento vocale."
+        );
 
-  voiceElement.textContent=
-   "NOT SUPPORTED";
+        return;
+    }
 
-  alert(
-   "Il riconoscimento vocale non è supportato da questo browser."
-  );
 
-  return;
- }
+    recognition =
+        new SpeechRecognition();
 
+    recognition.lang = "it-IT";
 
- /* Crea riconoscimento */
+    recognition.continuous = false;
 
- recognition =
-  new SpeechRecognition();
+    recognition.interimResults = false;
 
- recognition.lang="it-IT";
+    recognition.maxAlternatives = 1;
 
- recognition.continuous=false;
 
- recognition.interimResults=false;
+    /* PARTENZA */
 
- recognition.maxAlternatives=1;
+    recognition.onstart = function(){
 
+        console.log("MICROFONO ATTIVO");
 
- /* MICROFONO ATTIVO */
+        listening = true;
 
- recognition.onstart=function(){
+        setState("LISTENING");
+    };
 
-  listening=true;
 
-  setState("LISTENING",true);
+    /* AUDIO */
 
-  voiceElement.textContent=
-   "LISTENING";
- };
+    recognition.onaudiostart = function(){
 
+        console.log("AUDIO RICEVUTO");
 
- /* AUDIO RICEVUTO */
+        setState("HEARING");
+    };
 
- recognition.onaudiostart=function(){
 
-  voiceElement.textContent=
-   "AUDIO...";
- };
+    /* PARLATO */
 
+    recognition.onspeechstart = function(){
 
- /* PARLATO RILEVATO */
+        console.log("PARLATO RILEVATO");
 
- recognition.onspeechstart=function(){
+        setState("LISTENING");
+    };
 
-  voiceElement.textContent=
-   "HEARING...";
- };
 
+    /* RISULTATO */
 
- /* RISULTATO */
+    recognition.onresult = function(event){
 
- recognition.onresult=function(event){
+        console.log("RISULTATO RICEVUTO");
 
-  const testo =
-   event.results[0][0].transcript;
+        const testo =
+            event.results[0][0].transcript;
 
-  listening=false;
+        console.log("TESTO:", testo);
 
-  setState("THINKING",true);
+        listening = false;
 
-  voiceElement.textContent=
-   testo;
+        setState("THINKING");
 
-  /*
-   Per ora JARVIS ripete
-   ciò che hai detto.
-   Successivamente qui
-   collegheremo ChatGPT.
-  */
+        setTimeout(function(){
 
-  setTimeout(function(){
+            speak(
+                "Ho capito: " + testo
+            );
 
-   speak(
-    "Ho capito: " + testo
-   );
+        },500);
+    };
 
-  },500);
- };
 
+    /* NESSUN RISULTATO */
 
- /* NESSUN RISULTATO */
+    recognition.onnomatch = function(){
 
- recognition.onnomatch=function(){
+        console.log("NESSUN RISULTATO");
 
-  listening=false;
+        listening = false;
 
-  setState("NO COMMAND",false);
+        setState("NO COMMAND");
 
-  voiceElement.textContent=
-   "NOT UNDERSTOOD";
+        setTimeout(function(){
 
-  setTimeout(function(){
+            setState("SYSTEM READY");
 
-   setState("SYSTEM READY",false);
+        },2000);
+    };
 
-   voiceElement.textContent=
-    "READY";
 
-  },2000);
- };
+    /* ERRORE */
 
+    recognition.onerror = function(event){
 
- /* ERRORE */
+        console.log(
+            "ERRORE RICONOSCIMENTO:",
+            event.error
+        );
 
- recognition.onerror=function(event){
+        listening = false;
 
-  listening=false;
+        setState(
+            "ERROR " + event.error.toUpperCase()
+        );
 
-  mic.classList.remove("active");
+        setTimeout(function(){
 
-  setState("VOICE ERROR",false);
+            setState("SYSTEM READY");
 
-  voiceElement.textContent=
-   event.error.toUpperCase();
+        },3000);
+    };
 
-  console.log(
-   "JARVIS voice error:",
-   event.error
-  );
 
-  setTimeout(function(){
+    /* FINE */
 
-   setState("SYSTEM READY",false);
+    recognition.onend = function(){
 
-   voiceElement.textContent=
-    "READY";
+        console.log("ASCOLTO TERMINATO");
 
-  },3000);
- };
+        listening = false;
 
+        mic.classList.remove("active");
+    };
 
- /* FINE ASCOLTO */
 
- recognition.onend=function(){
+    /* AVVIO */
 
-  listening=false;
+    try{
 
-  mic.classList.remove("active");
+        recognition.start();
 
- };
+    }catch(error){
 
+        console.log(
+            "ERRORE START:",
+            error
+        );
 
- /* AVVIO */
+        listening = false;
 
- try{
-
-  recognition.start();
-
- }catch(error){
-
-  listening=false;
-
-  mic.classList.remove("active");
-
-  setState("START ERROR",false);
-
-  voiceElement.textContent=
-   "ERROR";
-
-  console.log(
-   "JARVIS start error:",
-   error
-  );
- }
+        setState("START ERROR");
+    }
 }
 
 
-/* =========================
-   PULSANTE JARVIS
-========================= */
+/* PULSANTE */
 
 mic.addEventListener(
- "click",
- function(){
-
-  startListening();
-
- }
+    "click",
+    startListening
 );
 
 
-/* =========================
-   AVVIO
-========================= */
+/* STATO INIZIALE */
 
-setState(
- "SYSTEM READY",
- false
-);
+setState("SYSTEM READY");
 
 </script>
-
-</body>
-</html>
